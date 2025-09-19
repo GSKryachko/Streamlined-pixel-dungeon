@@ -32,7 +32,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Blacksmith;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Camouflage;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SandalsOfNature;
@@ -132,18 +131,6 @@ public class HighGrass {
 					} else {
 						level.drop(Generator.random(Generator.Category.SEED), pos).sprite.drop();
 					}
-				}
-				
-				// Dew, scales from 1/6 to 1/4
-				lootChance = 1/(6f -naturalismLevel/2f);
-
-				//grassy levels spawn half as much dew
-				if (Dungeon.level != null && Dungeon.level.feeling == Level.Feeling.GRASS){
-					lootChance /= 2;
-				}
-
-				if (Random.Float() < lootChance) {
-					level.drop(new Dewdrop(), pos).sprite.drop();
 				}
 			}
 

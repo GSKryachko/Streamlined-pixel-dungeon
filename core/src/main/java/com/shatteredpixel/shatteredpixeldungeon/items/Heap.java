@@ -218,9 +218,6 @@ public class Heap implements Bundlable {
 			if (item instanceof Scroll && !item.unique) {
 				items.remove( item );
 				burnt = true;
-			} else if (item instanceof Dewdrop) {
-				items.remove( item );
-				evaporated = true;
 			} else if (item instanceof MysteryMeat || item instanceof FrozenCarpaccio) {
 				replace( item, ChargrilledMeat.cook( item.quantity ) );
 				burnt = true;
