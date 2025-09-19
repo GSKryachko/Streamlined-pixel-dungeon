@@ -30,7 +30,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.PurpleParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
@@ -43,7 +42,6 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.EyeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 public class Eye extends Mob {
@@ -62,7 +60,6 @@ public class Eye extends Mob {
 
 		HUNTING = new Hunting();
 		
-		loot = new Dewdrop();
 		lootChance = 1f;
 
 		properties.add(Property.DEMONIC);
@@ -229,27 +226,15 @@ public class Eye extends Mob {
 		beamTarget = -1;
 	}
 
-	//generates an average of 1 dew, 0.25 seeds, and 0.25 stones
+	//generates an average of 0.5 seeds, and 0.5 stones
 	@Override
 	public Item createLoot() {
 		Item loot;
-		switch(Random.Int(4)){
-			case 0: case 1: default:
-				loot = new Dewdrop();
-				int ofs;
-				do {
-					ofs = PathFinder.NEIGHBOURS8[Random.Int(8)];
-				} while (Dungeon.level.solid[pos + ofs] && !Dungeon.level.passable[pos + ofs]);
-				if (Dungeon.level.heaps.get(pos+ofs) == null) {
-					Dungeon.level.drop(new Dewdrop(), pos + ofs).sprite.drop(pos);
-				} else {
-					Dungeon.level.drop(new Dewdrop(), pos + ofs).sprite.drop(pos + ofs);
-				}
-				break;
-			case 2:
+		switch(Random.Int(2)){
+			case 0:
 				loot = Generator.randomUsingDefaults(Generator.Category.SEED);
 				break;
-			case 3:
+			case 1: default:
 				loot = Generator.randomUsingDefaults(Generator.Category.STONE);
 				break;
 		}
