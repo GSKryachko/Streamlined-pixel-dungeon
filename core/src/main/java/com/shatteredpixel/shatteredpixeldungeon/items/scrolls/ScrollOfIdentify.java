@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.scrolls;
 
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
+import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Identification;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
@@ -78,6 +79,8 @@ public class ScrollOfIdentify extends InventoryScroll {
 		item.identify();
 		GLog.i(Messages.get(ScrollOfIdentify.class, "it_is", item.title()));
 		Badges.validateItemLevelAquired( item );
+		Statistics.scrollsOfIdentifyUsed += 1;
+		Badges.validateMageUnlock();
 	}
 	
 	@Override

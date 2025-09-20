@@ -37,7 +37,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
-import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
@@ -352,40 +351,7 @@ abstract public class MissileWeapon extends Weapon {
 	//mainly used to track warnings relating to throwing the last upgraded one, not super accurate
 	public boolean extraThrownLeft = false;
 
-	@Override
-	public Item random() {
-		//+0: 75% (3/4)
-		//+1: 20% (4/20)
-		//+2: 5%  (1/20)
-		int n = 0;
-		if (Random.Int(4) == 0) {
-			n++;
-			if (Random.Int(5) == 0) {
-				n++;
-			}
-		}
-		level(n);
-
-		//we use a separate RNG here so that variance due to things like parchment scrap
-		//does not affect levelgen
-		Random.pushGenerator(Random.Long());
-
-			//30% chance to be cursed
-			//10% chance to be enchanted
-			float effectRoll = Random.Float();
-			if (effectRoll < 0.3f * ParchmentScrap.curseChanceMultiplier()) {
-				enchant(Enchantment.randomCurse());
-				cursed = true;
-			} else if (effectRoll >= 1f - (0.1f * ParchmentScrap.enchantChanceMultiplier())){
-				enchant();
-			}
-
-		Random.popGenerator();
-
-		return this;
-	}
-
-	public String status() {
+    public String status() {
 		//show quantity even when it is 1
 		return Integer.toString( quantity );
 	}

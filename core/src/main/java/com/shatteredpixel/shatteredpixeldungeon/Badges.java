@@ -964,7 +964,7 @@ public class Badges {
 	}
 	
 	public static void validateMageUnlock(){
-		if (Statistics.upgradesUsed >= 1 && !isUnlocked(Badge.UNLOCK_MAGE)){
+		if (Statistics.scrollsOfIdentifyUsed >= 3 && !isUnlocked(Badge.UNLOCK_MAGE)){
 			displayBadge( Badge.UNLOCK_MAGE );
 		}
 	}
