@@ -651,14 +651,18 @@ public class Armor extends EquipableItem {
 
 	@Override
 	public Item random() {
-		//+0: 75% (3/4)
-		//+1: 20% (4/20)
-		//+2: 5%  (1/20)
-		int n = 0;
+		//+0: 75%
+		//+1: 20%
+		//+2: 4%
+		//+3: 1%
+		int n = Dungeon.depth / 5;
 		if (Random.Int(4) == 0) {
 			n++;
 			if (Random.Int(5) == 0) {
 				n++;
+				if (Random.Int(5) == 0) {
+					n++;
+				}
 			}
 		}
 		level(n);

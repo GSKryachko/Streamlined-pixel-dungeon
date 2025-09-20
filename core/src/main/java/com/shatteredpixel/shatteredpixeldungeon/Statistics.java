@@ -35,6 +35,7 @@ public class Statistics {
 	public static int enemiesSlain;
 	public static int foodEaten;
 	public static int itemsCrafted;
+	public static int scrollsOfIdentifyUsed;
 	public static int piranhasKilled;
 	public static int hazardAssistedKills;
 	public static int ankhsUsed;

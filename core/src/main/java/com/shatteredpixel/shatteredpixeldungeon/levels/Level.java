@@ -66,7 +66,6 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SacrificialParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.WindParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
@@ -74,7 +73,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesi
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfEnchantment;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfIntuition;
@@ -222,16 +220,6 @@ public abstract class Level implements Bundlable {
 			if (Dungeon.posNeeded()) {
 				Dungeon.LimitedDrops.STRENGTH_POTIONS.count++;
 				addItemToSpawn( new PotionOfStrength() );
-			}
-			if (Dungeon.souNeeded()) {
-				Dungeon.LimitedDrops.UPGRADE_SCROLLS.count++;
-				//every 2nd scroll of upgrade is removed with forbidden runes challenge on
-				//TODO while this does significantly reduce this challenge's levelgen impact, it doesn't quite remove it
-				//for 0 levelgen impact, we need to do something like give the player all SOU, but nerf them
-				//or give a random scroll (from a separate RNG) instead of every 2nd SOU
-				if (!Dungeon.isChallenged(Challenges.NO_SCROLLS) || Dungeon.LimitedDrops.UPGRADE_SCROLLS.count%2 != 0){
-					addItemToSpawn(new ScrollOfUpgrade());
-				}
 			}
 			if (Dungeon.asNeeded()) {
 				Dungeon.LimitedDrops.ARCANE_STYLI.count++;
