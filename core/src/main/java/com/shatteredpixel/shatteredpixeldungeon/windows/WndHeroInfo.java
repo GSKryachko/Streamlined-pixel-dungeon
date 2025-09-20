@@ -175,37 +175,31 @@ public class WndHeroInfo extends WndTabbed {
 			switch (cls){
 				case WARRIOR: default:
 					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.SEAL),
-							new ItemSprite(ItemSpriteSheet.WORN_SHORTSWORD),
-							new ItemSprite(ItemSpriteSheet.SCROLL_ISAZ)};
+							new ItemSprite(ItemSpriteSheet.WORN_SHORTSWORD)};
 					break;
 				case MAGE:
 					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.MAGES_STAFF),
-							new ItemSprite(ItemSpriteSheet.WAND_MAGIC_MISSILE),
-							new ItemSprite(ItemSpriteSheet.SCROLL_ISAZ)};
+							new ItemSprite(ItemSpriteSheet.WAND_MAGIC_MISSILE)};
 					break;
 				case ROGUE:
 					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.ARTIFACT_CLOAK),
 							Icons.get(Icons.STAIRS),
-							new ItemSprite(ItemSpriteSheet.DAGGER),
-							new ItemSprite(ItemSpriteSheet.SCROLL_ISAZ)};
+							new ItemSprite(ItemSpriteSheet.DAGGER)};
 					break;
 				case HUNTRESS:
 					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.SPIRIT_BOW),
 							Icons.GRASS.get(),
-							new ItemSprite(ItemSpriteSheet.GLOVES),
-							new ItemSprite(ItemSpriteSheet.SCROLL_ISAZ)};
+							new ItemSprite(ItemSpriteSheet.GLOVES)};
 					break;
 				case DUELIST:
 					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.RAPIER),
 							new ItemSprite(ItemSpriteSheet.WAR_HAMMER),
-							new ItemSprite(ItemSpriteSheet.THROWING_SPIKE),
-							new ItemSprite(ItemSpriteSheet.SCROLL_ISAZ)};
+							new ItemSprite(ItemSpriteSheet.THROWING_SPIKE)};
 					break;
 				case CLERIC:
 					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.ARTIFACT_TOME),
 							Icons.TALENT.get(),
-							new ItemSprite(ItemSpriteSheet.CUDGEL),
-							new ItemSprite(ItemSpriteSheet.SCROLL_ISAZ)};
+							new ItemSprite(ItemSpriteSheet.CUDGEL)};
 					break;
 			}
 			for (Image im : icons) {

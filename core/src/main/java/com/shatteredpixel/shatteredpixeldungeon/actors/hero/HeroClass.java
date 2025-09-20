@@ -45,6 +45,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.En
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.HeroicLeap;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
+import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
@@ -53,20 +54,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfPurity;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Cudgel;
@@ -81,6 +68,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingSt
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.watabou.utils.DeviceCompat;
+import com.watabou.utils.Reflection;
 
 public enum HeroClass {
 
@@ -105,9 +93,6 @@ public enum HeroClass {
 		Item i = new ClothArmor().identify();
 		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (ClothArmor)i;
 
-		i = new Food();
-		if (!Challenges.isItemBlocked(i)) i.collect();
-
 		new VelvetPouch().collect();
 		Dungeon.LimitedDrops.VELVET_POUCH.drop();
 		new ScrollHolder().collect();
@@ -117,7 +102,14 @@ public enum HeroClass {
 		new MagicalHolster().collect();
 		Dungeon.LimitedDrops.MAGICAL_HOLSTER.drop();
 
-		new ScrollOfIdentify().identify();
+		// Let's make all scrolls known right away
+		for (var scroll : Generator.Category.SCROLL.classes) {
+			((Item) Reflection.newInstance(scroll)).identify();
+		}
+
+		for (var potion : Generator.Category.POTION.classes) {
+			((Item) Reflection.newInstance(potion)).identify();
+		}
 
 		switch (this) {
 			case WARRIOR:
@@ -175,9 +167,6 @@ public enum HeroClass {
 			hero.belongings.armor.affixSeal(new BrokenSeal());
 			Catalog.setSeen(BrokenSeal.class); //as it's not added to the inventory
 		}
-
-		new PotionOfHealing().identify();
-		new ScrollOfRage().identify();
 	}
 
 	private static void initMage( Hero hero ) {
@@ -189,9 +178,6 @@ public enum HeroClass {
 		hero.belongings.weapon.activate(hero);
 
 		Dungeon.quickslot.setSlot(0, staff);
-
-		new ScrollOfUpgrade().identify();
-		new PotionOfLiquidFlame().identify();
 	}
 
 	private static void initRogue( Hero hero ) {
@@ -206,9 +192,6 @@ public enum HeroClass {
 
 		Dungeon.quickslot.setSlot(0, cloak);
 		Dungeon.quickslot.setSlot(1, knives);
-
-		new ScrollOfMagicMapping().identify();
-		new PotionOfInvisibility().identify();
 	}
 
 	private static void initHuntress( Hero hero ) {
@@ -218,9 +201,6 @@ public enum HeroClass {
 		bow.identify().collect();
 
 		Dungeon.quickslot.setSlot(0, bow);
-
-		new PotionOfMindVision().identify();
-		new ScrollOfLullaby().identify();
 	}
 
 	private static void initDuelist( Hero hero ) {
@@ -233,9 +213,6 @@ public enum HeroClass {
 
 		Dungeon.quickslot.setSlot(0, hero.belongings.weapon);
 		Dungeon.quickslot.setSlot(1, spikes);
-
-		new PotionOfStrength().identify();
-		new ScrollOfMirrorImage().identify();
 	}
 
 	private static void initCleric( Hero hero ) {
@@ -248,9 +225,6 @@ public enum HeroClass {
 		hero.belongings.artifact.activate( hero );
 
 		Dungeon.quickslot.setSlot(0, tome);
-
-		new PotionOfPurity().identify();
-		new ScrollOfRemoveCurse().identify();
 	}
 
 	public String title() {
