@@ -106,7 +106,7 @@ public class CrystalChoiceRoom extends SpecialRoom {
 		for (int i = 0; i < n; i++){
 			Item reward = Generator.random(Random.oneOf(
 					Generator.Category.POTION,
-					Generator.Category.SCROLL
+					Generator.Category.POTION
 			));
 			int pos;
 			do {

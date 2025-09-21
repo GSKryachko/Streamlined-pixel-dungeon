@@ -123,12 +123,12 @@ public abstract class EquipableItem extends Item {
 
 	public boolean doUnequip( Hero hero, boolean collect, boolean single ) {
 
-		if (cursed
-				&& hero.buff(MagicImmune.class) == null
-				&& (!hero.belongings.lostInventory() || keptThroughLostInventory())) {
-			GLog.w(Messages.get(EquipableItem.class, "unequip_cursed"));
-			return false;
-		}
+//		if (cursed
+//				&& hero.buff(MagicImmune.class) == null
+//				&& (!hero.belongings.lostInventory() || keptThroughLostInventory())) {
+//			GLog.w(Messages.get(EquipableItem.class, "unequip_cursed"));
+//			return false;
+//		}
 
 		if (single) {
 			hero.spendAndNext( timeToEquip( hero ) );

@@ -82,10 +82,10 @@ public class Item implements Bundlable {
 	
 	private int level = 0;
 
-	public boolean levelKnown = false;
+	public boolean levelKnown = true;
 	
 	public boolean cursed;
-	public boolean cursedKnown;
+	public boolean cursedKnown = true;
 	
 	// Unique items persist through revival
 	public boolean unique = false;

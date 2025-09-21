@@ -237,7 +237,7 @@ public class Generator {
 		POTION	( 8, 8, Potion.class ),
 		SEED	( 1, 1, Plant.Seed.class ),
 		
-		SCROLL	( 8, 8, Scroll.class ),
+//		SCROLL	( 8, 8, Scroll.class ),
 		STONE   ( 1, 1, Runestone.class),
 		
 		GOLD	( 10, 10,   Gold.class );
@@ -284,7 +284,6 @@ public class Generator {
 			subOrderings.put(Trinket.class, new ArrayList<>(Arrays.asList(Trinket.class, TrinketCatalyst.class)));
 			subOrderings.put(MissileWeapon.class, new ArrayList<>(Arrays.asList(MissileWeapon.class, Bomb.class)));
 			subOrderings.put(Potion.class, new ArrayList<>(Arrays.asList(Potion.class, ExoticPotion.class, Brew.class, Elixir.class, LiquidMetal.class)));
-			subOrderings.put(Scroll.class, new ArrayList<>(Arrays.asList(Scroll.class, ExoticScroll.class, Spell.class, ArcaneResin.class)));
 		}
 
 		//in case there are multiple matches, this will return the latest match
@@ -350,23 +349,23 @@ public class Generator {
 			SEED.defaultProbs = new float[]{ 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1 };
 			SEED.probs = SEED.defaultProbs.clone();
 			
-			SCROLL.classes = new Class<?>[]{
-					ScrollOfIdentify.class,
-					ScrollOfRemoveCurse.class,
-					ScrollOfMirrorImage.class,
-					ScrollOfRecharging.class,
-					ScrollOfTeleportation.class,
-					ScrollOfLullaby.class,
-					ScrollOfMagicMapping.class,
-					ScrollOfRage.class,
-					ScrollOfRetribution.class,
-					ScrollOfTerror.class,
-					ScrollOfTransmutation.class
-			};
-			SCROLL.defaultProbs  = new float[]{ 3, 3, 1, 2, 1, 1, 1, 1, 1, 1, 1 };
-			SCROLL.defaultProbs2 = new float[]{ 3, 3, 2, 1, 2, 1, 1, 1, 1, 1, 0 };
-			SCROLL.probs = SCROLL.defaultProbs.clone();
-			
+//			SCROLL.classes = new Class<?>[]{
+//					ScrollOfIdentify.class,
+//					ScrollOfRemoveCurse.class,
+//					ScrollOfMirrorImage.class,
+//					ScrollOfRecharging.class,
+//					ScrollOfTeleportation.class,
+//					ScrollOfLullaby.class,
+//					ScrollOfMagicMapping.class,
+//					ScrollOfRage.class,
+//					ScrollOfRetribution.class,
+//					ScrollOfTerror.class,
+//					ScrollOfTransmutation.class
+//			};
+//			SCROLL.defaultProbs  = new float[]{ 3, 3, 1, 2, 1, 1, 1, 1, 1, 1, 1 };
+//			SCROLL.defaultProbs2 = new float[]{ 3, 3, 2, 1, 2, 1, 1, 1, 1, 1, 0 };
+//			SCROLL.probs = SCROLL.defaultProbs.clone();
+//
 			STONE.classes = new Class<?>[]{
 					StoneOfEnchantment.class,   //1 is guaranteed to drop on floors 6-19
 					StoneOfIntuition.class,     //1 additional stone is also dropped on floors 1-3
@@ -560,7 +559,7 @@ public class Generator {
 					TimekeepersHourglass.class,
 					UnstableSpellbook.class
 			};
-			ARTIFACT.defaultProbs = new float[]{ 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1 };
+			ARTIFACT.defaultProbs = new float[]{ 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0 };
 			ARTIFACT.probs = ARTIFACT.defaultProbs.clone();
 
 			//Trinkets are unique like artifacts, but unlike them you can only have one at once
@@ -717,10 +716,6 @@ public class Generator {
 					if (Random.Float() < ExoticCrystals.consumableExoticChance()){
 						itemCls = ExoticPotion.regToExo.get(itemCls);
 					}
-				} else if (ExoticScroll.regToExo.containsKey(itemCls)){
-					if (Random.Float() < ExoticCrystals.consumableExoticChance()){
-						itemCls = ExoticScroll.regToExo.get(itemCls);
-					}
 				}
 
 				return ((Item) Reflection.newInstance(itemCls)).random();
@@ -744,10 +739,6 @@ public class Generator {
 			if (ExoticPotion.regToExo.containsKey(itemCls)){
 				if (Random.Float() < ExoticCrystals.consumableExoticChance()){
 					itemCls = ExoticPotion.regToExo.get(itemCls);
-				}
-			} else if (ExoticScroll.regToExo.containsKey(itemCls)){
-				if (Random.Float() < ExoticCrystals.consumableExoticChance()){
-					itemCls = ExoticScroll.regToExo.get(itemCls);
 				}
 			}
 

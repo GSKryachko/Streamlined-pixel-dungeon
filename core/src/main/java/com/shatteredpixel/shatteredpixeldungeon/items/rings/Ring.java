@@ -152,7 +152,7 @@ public class Ring extends KindofMisc {
 	}
 	
 	public boolean isKnown() {
-		return anonymous || (handler != null && handler.isKnown( this ));
+		return true;
 	}
 	
 	public void setKnown() {
@@ -234,12 +234,7 @@ public class Ring extends KindofMisc {
 		
 		return this;
 	}
-	
-	@Override
-	public boolean isIdentified() {
-		return super.isIdentified() && isKnown();
-	}
-	
+
 	@Override
 	public Item identify( boolean byHero ) {
 		setKnown();

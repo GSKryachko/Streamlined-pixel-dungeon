@@ -52,12 +52,7 @@ public class LibraryRoom extends SpecialRoom {
 			do {
 				pos = level.pointToCell(random());
 			} while (level.map[pos] != Terrain.EMPTY_SP || level.heaps.get( pos ) != null);
-			Item item;
-			if (i == 0)
-				item = Random.Int(2) == 0 ? new ScrollOfIdentify() : new ScrollOfRemoveCurse();
-			else
-				item = prize( level );
-			level.drop( item, pos );
+			level.drop( prize( level ), pos );
 		}
 		
 		entrance.set( Door.Type.LOCKED );
@@ -71,7 +66,7 @@ public class LibraryRoom extends SpecialRoom {
 		if (prize == null){
 			prize = level.findPrizeItem( Scroll.class );
 			if (prize == null) {
-				prize = Generator.random( Generator.Category.SCROLL );
+				prize = Generator.random( Generator.Category.POTION );
 			}
 		}
 		

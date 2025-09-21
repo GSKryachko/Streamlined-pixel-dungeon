@@ -33,6 +33,8 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
@@ -62,7 +64,7 @@ public class Succubus extends Mob {
 		EXP = 12;
 		maxLvl = 25;
 		
-		loot = Generator.Category.SCROLL;
+		loot = Generator.Category.POTION;
 		lootChance = 0.33f;
 
 		properties.add(Property.DEMONIC);
@@ -171,10 +173,10 @@ public class Succubus extends Mob {
 
 	@Override
 	public Item createLoot() {
-		Class<?extends Scroll> loot;
+		Class<?extends Potion> loot;
 		do{
-			loot = (Class<? extends Scroll>) Random.oneOf(Generator.Category.SCROLL.classes);
-		} while (loot == ScrollOfIdentify.class || loot == ScrollOfUpgrade.class);
+			loot = (Class<? extends Potion>) Random.oneOf(Generator.Category.POTION.classes);
+		} while (loot == PotionOfStrength.class);
 
 		return Reflection.newInstance(loot);
 	}

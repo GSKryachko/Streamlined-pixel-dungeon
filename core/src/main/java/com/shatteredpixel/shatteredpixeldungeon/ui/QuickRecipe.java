@@ -279,16 +279,16 @@ public class QuickRecipe extends Component {
 					}
 				}));
 				return result;
+//			case 1:
+//				Recipe r = new Scroll.ScrollToStone();
+//				for (Class<?> cls : Generator.Category.SCROLL.classes){
+//					Scroll scroll = (Scroll) Reflection.newInstance(cls);
+//					if (!scroll.isKnown()) scroll.anonymize();
+//					ArrayList<Item> in = new ArrayList<Item>(Arrays.asList(scroll));
+//					result.add(new QuickRecipe( r, in, r.sampleOutput(in)));
+//				}
+//				return result;
 			case 1:
-				Recipe r = new Scroll.ScrollToStone();
-				for (Class<?> cls : Generator.Category.SCROLL.classes){
-					Scroll scroll = (Scroll) Reflection.newInstance(cls);
-					if (!scroll.isKnown()) scroll.anonymize();
-					ArrayList<Item> in = new ArrayList<Item>(Arrays.asList(scroll));
-					result.add(new QuickRecipe( r, in, r.sampleOutput(in)));
-				}
-				return result;
-			case 2:
 				result.add(new QuickRecipe( new StewedMeat.oneMeat() ));
 				result.add(new QuickRecipe( new StewedMeat.twoMeat() ));
 				result.add(new QuickRecipe( new StewedMeat.threeMeat() ));
@@ -311,23 +311,23 @@ public class QuickRecipe extends Component {
 							}
 						}));
 				return result;
-			case 3:
-				r = new ExoticPotion.PotionToExotic();
+			case 2:
+				Recipe r = new ExoticPotion.PotionToExotic();
 				for (Class<?> cls : Generator.Category.POTION.classes){
 					Potion pot = (Potion) Reflection.newInstance(cls);
 					ArrayList<Item> in = new ArrayList<>(Arrays.asList(pot));
 					result.add(new QuickRecipe( r, in, r.sampleOutput(in)));
 				}
 				return result;
-			case 4:
-				r = new ExoticScroll.ScrollToExotic();
-				for (Class<?> cls : Generator.Category.SCROLL.classes){
-					Scroll scroll = (Scroll) Reflection.newInstance(cls);
-					ArrayList<Item> in = new ArrayList<>(Arrays.asList(scroll));
-					result.add(new QuickRecipe( r, in, r.sampleOutput(in)));
-				}
-				return result;
-			case 5:
+//			case 3:
+//				r = new ExoticScroll.ScrollToExotic();
+//				for (Class<?> cls : Generator.Category.SCROLL.classes){
+//					Scroll scroll = (Scroll) Reflection.newInstance(cls);
+//					ArrayList<Item> in = new ArrayList<>(Arrays.asList(scroll));
+//					result.add(new QuickRecipe( r, in, r.sampleOutput(in)));
+//				}
+//				return result;
+			case 3:
 				r = new Bomb.EnhanceBomb();
 				int i = 0;
 				for (Class<?> cls : Bomb.EnhanceBomb.validIngredients.keySet()){
@@ -341,7 +341,7 @@ public class QuickRecipe extends Component {
 					i++;
 				}
 				return result;
-			case 6:
+			case 4:
 				result.add(new QuickRecipe( new LiquidMetal.Recipe(),
 						new ArrayList<Item>(Arrays.asList(new MissileWeapon.PlaceHolder())),
 						new LiquidMetal()));
@@ -349,7 +349,7 @@ public class QuickRecipe extends Component {
 						new ArrayList<Item>(Arrays.asList(new Wand.PlaceHolder())),
 						new ArcaneResin()));
 				return result;
-			case 7:
+			case 5:
 				result.add(new QuickRecipe(new UnstableBrew.Recipe(), new ArrayList<>(Arrays.asList(new Potion.PlaceHolder(), new  Plant.Seed.PlaceHolder())), new UnstableBrew()));
 				result.add(new QuickRecipe(new CausticBrew.Recipe()));
 				result.add(new QuickRecipe(new BlizzardBrew.Recipe()));
@@ -367,7 +367,7 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe(new ElixirOfFeatherFall.Recipe()));
 				result.add(new QuickRecipe(new ElixirOfMight.Recipe()));
 				return result;
-			case 8:
+			case 6:
 				result.add(new QuickRecipe(new UnstableSpell.Recipe(), new ArrayList<>(Arrays.asList(new Scroll.PlaceHolder(), new  Runestone.PlaceHolder())), new UnstableSpell()));
 				result.add(new QuickRecipe(new WildEnergy.Recipe()));
 				result.add(new QuickRecipe(new TelekineticGrab.Recipe()));
