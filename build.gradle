@@ -14,8 +14,8 @@ allprojects {
         appName = 'Streamlined Pixel Dungeon'
         appPackageName = 'com.streamlinedpixel.streamlinedpixeldungeon'
 
-        appVersionCode = 878
-        appVersionName = '878'
+        appVersionCode = 879
+        appVersionName = '879'
 
         appJavaCompatibility = JavaVersion.VERSION_11
 

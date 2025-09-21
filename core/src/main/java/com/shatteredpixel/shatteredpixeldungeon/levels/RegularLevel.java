@@ -60,7 +60,6 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.builders.LoopBuilder;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.SecretRoom;
-import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.MagicalFireRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.PitRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.SacrificeRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.ShopRoom;
@@ -800,9 +799,7 @@ public abstract class RegularLevel extends Level {
 		//There is magical fire (blocks items) or sacrificial fire (contains items) in it
 		for (Blob b : blobs.values()){
 			if (b.volume > 0) {
-				if (b instanceof MagicalFireRoom.EternalFire) {
-					missedRooms.add(room(MagicalFireRoom.class));
-				} else if (b instanceof SacrificialFire) {
+				if (b instanceof SacrificialFire) {
 					missedRooms.add(room(SacrificeRoom.class));
 				}
 			}

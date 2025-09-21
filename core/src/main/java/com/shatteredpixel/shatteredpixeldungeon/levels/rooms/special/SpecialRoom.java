@@ -79,28 +79,22 @@ public abstract class SpecialRoom extends Room {
 		}
 	}
 
-	//9 special rooms which give equipment more often than consumables (or as often as)
+	//7 special rooms which give equipment more often than consumables (or as often as)
 	private static final ArrayList<Class<? extends SpecialRoom>> EQUIP_SPECIALS = new ArrayList<>( Arrays.asList(
-			WeakFloorRoom.class, CryptRoom.class, PoolRoom.class, ArmoryRoom.class, SentryRoom.class,
+			WeakFloorRoom.class, CryptRoom.class,  ArmoryRoom.class,
 			StatueRoom.class, CrystalVaultRoom.class, CrystalChoiceRoom.class, SacrificeRoom.class
 	));
 
-	//10 special rooms which give consumables more often than equipment
+	//6 special rooms which give consumables more often than equipment
 	//note that alchemy rooms are spawned separately
 	private static final ArrayList<Class<? extends SpecialRoom>> CONSUMABLE_SPECIALS = new ArrayList<>( Arrays.asList(
-			RunestoneRoom.class, GardenRoom.class, LibraryRoom.class, StorageRoom.class,
-			TreasuryRoom.class, MagicWellRoom.class, ToxicGasRoom.class, MagicalFireRoom.class,
-			TrapsRoom.class, CrystalPathRoom.class
+			RunestoneRoom.class, GardenRoom.class, LibraryRoom.class, TreasuryRoom.class,
+			MagicWellRoom.class, CrystalPathRoom.class
 	) );
 
 	//only one special that uses crystal keys per floor
 	public static final ArrayList<Class<? extends SpecialRoom>> CRYSTAL_KEY_SPECIALS = new ArrayList<>( Arrays.asList(
 			PitRoom.class, CrystalVaultRoom.class, CrystalChoiceRoom.class, CrystalPathRoom.class
-	) );
-
-	//only one special that generates a potion per floor
-	private static final ArrayList<Class<? extends SpecialRoom>> POTION_SPAWN_ROOMS = new ArrayList<>( Arrays.asList(
-			PoolRoom.class, SentryRoom.class, StorageRoom.class, ToxicGasRoom.class, MagicalFireRoom.class, TrapsRoom.class
 	) );
 
 	public static ArrayList<Class<? extends Room>> runSpecials = new ArrayList<>();
@@ -117,8 +111,8 @@ public abstract class SpecialRoom extends Room {
 		Random.shuffle(runEquipSpecials);
 		Random.shuffle(runConsSpecials);
 
-		// TODO currently always a consumable special first as there's 1 more of them, adjust as needed if adding more
-		runSpecials.add(runConsSpecials.remove(0));
+		// TODO currently always an equipment special first as there's 1 more of them, adjust as needed if adding more
+		runSpecials.add(runEquipSpecials.remove(0));
 
 		while (!runEquipSpecials.isEmpty() || !runConsSpecials.isEmpty()){
 			if (!runEquipSpecials.isEmpty())    runSpecials.add(runEquipSpecials.remove(0));
@@ -142,9 +136,6 @@ public abstract class SpecialRoom extends Room {
 		floorSpecials.remove( type );
 		if (CRYSTAL_KEY_SPECIALS.contains(type)){
 			floorSpecials.removeAll(CRYSTAL_KEY_SPECIALS);
-		}
-		if (POTION_SPAWN_ROOMS.contains(type)){
-			floorSpecials.removeAll(POTION_SPAWN_ROOMS);
 		}
 		if (runSpecials.remove( type )) {
 			runSpecials.add( type );
