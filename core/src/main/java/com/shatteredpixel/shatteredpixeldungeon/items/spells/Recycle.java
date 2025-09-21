@@ -69,11 +69,6 @@ public class Recycle extends InventorySpell {
 				if (item instanceof ExoticPotion){
 					result = Reflection.newInstance(ExoticPotion.regToExo.get(result.getClass()));
 				}
-			} else if (item instanceof Scroll) {
-				result = Generator.randomUsingDefaults(Generator.Category.SCROLL);
-				if (item instanceof ExoticScroll){
-					result = Reflection.newInstance(ExoticScroll.regToExo.get(result.getClass()));
-				}
 			} else if (item instanceof Plant.Seed) {
 				result = Generator.randomUsingDefaults(Generator.Category.SEED);
 			} else if (item instanceof Runestone) {

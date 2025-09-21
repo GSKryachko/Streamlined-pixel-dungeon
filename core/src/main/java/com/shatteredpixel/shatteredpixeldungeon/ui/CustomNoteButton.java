@@ -214,9 +214,6 @@ public class CustomNoteButton extends IconButton {
 			for (Class<?> potionCls : Generator.Category.POTION.classes) {
 				items.add((Item) Reflection.newInstance(potionCls));
 			}
-			for (Class<?> potionCls : Generator.Category.SCROLL.classes) {
-				items.add((Item) Reflection.newInstance(potionCls));
-			}
 			for (Class<?> potionCls : Generator.Category.RING.classes) {
 				items.add((Item) Reflection.newInstance(potionCls));
 			}

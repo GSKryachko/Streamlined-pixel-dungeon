@@ -222,8 +222,6 @@ public enum Catalog {
 
 		POTIONS.addItems(Generator.Category.POTION.classes);
 
-		SCROLLS.addItems(Generator.Category.SCROLL.classes);
-
 		SEEDS.addItems(Generator.Category.SEED.classes);
 
 		STONES.addItems(Generator.Category.STONE.classes);

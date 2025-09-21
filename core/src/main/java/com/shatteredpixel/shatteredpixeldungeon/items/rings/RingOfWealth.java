@@ -208,7 +208,7 @@ public class RingOfWealth extends Ring {
 	}
 
 	private static Item genLowValueConsumable(){
-		switch (Random.Int(4)){
+		switch (Random.Int(3)){
 			case 0: default:
 				Item i = new Gold().random();
 				return i.quantity(i.quantity()/2);
@@ -216,13 +216,11 @@ public class RingOfWealth extends Ring {
 				return Generator.randomUsingDefaults(Generator.Category.STONE);
 			case 2:
 				return Generator.randomUsingDefaults(Generator.Category.POTION);
-			case 3:
-				return Generator.randomUsingDefaults(Generator.Category.SCROLL);
 		}
 	}
 
 	private static Item genMidValueConsumable(){
-		switch (Random.Int(6)){
+		switch (Random.Int(5)){
 			case 0: default:
 				Item i = genLowValueConsumable();
 				return i.quantity(i.quantity()*2);
@@ -234,23 +232,16 @@ public class RingOfWealth extends Ring {
 					return Reflection.newInstance(i.getClass());
 				}
 			case 2:
-				i = Generator.randomUsingDefaults(Generator.Category.SCROLL);
-				if (!(i instanceof ExoticScroll)){
-					return Reflection.newInstance(ExoticScroll.regToExo.get(i.getClass()));
-				} else {
-					return Reflection.newInstance(i.getClass());
-				}
-			case 3:
 				return Random.Int(2) == 0 ? new UnstableBrew() : new UnstableSpell();
-			case 4:
+			case 3:
 				return new Bomb();
-			case 5:
+			case 4:
 				return new Honeypot();
 		}
 	}
 
 	private static Item genHighValueConsumable(){
-		switch (Random.Int(4)){
+		switch (Random.Int(3)){
 			case 0: default:
 				Item i = genMidValueConsumable();
 				if (i instanceof Bomb){
@@ -262,8 +253,6 @@ public class RingOfWealth extends Ring {
 				return new StoneOfEnchantment();
 			case 2:
 				return Random.Float() < ExoticCrystals.consumableExoticChance() ? new PotionOfDivineInspiration() : new PotionOfExperience();
-			case 3:
-				return Random.Float() < ExoticCrystals.consumableExoticChance() ? new ScrollOfMetamorphosis() : new ScrollOfTransmutation();
 		}
 	}
 

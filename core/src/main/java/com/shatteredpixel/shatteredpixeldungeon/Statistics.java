@@ -61,7 +61,7 @@ public class Statistics {
 	public static int upgradesUsed;
 	public static int sneakAttacks;
 	public static int thrownAttacks;
-
+	public static int wandUses;
 	public static int spawnersAlive;
 	
 	public static float duration;

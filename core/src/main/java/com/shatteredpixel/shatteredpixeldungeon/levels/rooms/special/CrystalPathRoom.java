@@ -168,19 +168,14 @@ public class CrystalPathRoom extends SpecialRoom {
 
 		ArrayList<Item> duplicates = new ArrayList<>();
 
-		if (Random.Int(2) == 0){
-			addRewardItem(Generator.Category.POTION, potions, duplicates);
-			scrolls.add(Random.Float() < ExoticCrystals.consumableExoticChance()
-					? new ScrollOfMetamorphosis() : new ScrollOfTransmutation());
-		} else {
-			potions.add(Random.Float() < ExoticCrystals.consumableExoticChance()
-					? new PotionOfDivineInspiration() : new PotionOfExperience());
-			addRewardItem(Generator.Category.SCROLL, scrolls, duplicates);
-		}
+
+		potions.add(Random.Float() < ExoticCrystals.consumableExoticChance()
+				? new PotionOfDivineInspiration() : new PotionOfExperience());
+		addRewardItem(Generator.Category.POTION, scrolls, duplicates);
 		addRewardItem(Generator.Category.POTION, potions, duplicates);
-		addRewardItem(Generator.Category.SCROLL, scrolls, duplicates);
+		addRewardItem(Generator.Category.POTION, scrolls, duplicates);
 		addRewardItem(Generator.Category.POTION, potions, duplicates);
-		addRewardItem(Generator.Category.SCROLL, scrolls, duplicates);
+		addRewardItem(Generator.Category.POTION, scrolls, duplicates);
 
 		//need to undo the changes to spawn chances that the duplicates created
 		for (Item i : duplicates){
@@ -223,9 +218,9 @@ public class CrystalPathRoom extends SpecialRoom {
 				if (b instanceof ExoticScroll){
 					bCls = ExoticScroll.exoToReg.get(bCls);
 				}
-				for (int i = 0; i < Generator.Category.SCROLL.classes.length; i++){
-					if (aCls == Generator.Category.SCROLL.classes[i]) aVal = (int)Generator.Category.SCROLL.defaultProbsTotal[i];
-					if (bCls == Generator.Category.SCROLL.classes[i]) bVal = (int)Generator.Category.SCROLL.defaultProbsTotal[i];
+				for (int i = 0; i < Generator.Category.POTION.classes.length; i++){
+					if (aCls == Generator.Category.POTION.classes[i]) aVal = (int)Generator.Category.POTION.defaultProbsTotal[i];
+					if (bCls == Generator.Category.POTION.classes[i]) bVal = (int)Generator.Category.POTION.defaultProbsTotal[i];
 				}
 				return bVal - aVal;
 			}

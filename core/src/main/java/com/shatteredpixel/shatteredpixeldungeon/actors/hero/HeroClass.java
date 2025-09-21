@@ -52,7 +52,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
-import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
@@ -95,18 +94,12 @@ public enum HeroClass {
 
 		new VelvetPouch().collect();
 		Dungeon.LimitedDrops.VELVET_POUCH.drop();
-		new ScrollHolder().collect();
-		Dungeon.LimitedDrops.SCROLL_HOLDER.drop();
 		new PotionBandolier().collect();
 		Dungeon.LimitedDrops.POTION_BANDOLIER.drop();
 		new MagicalHolster().collect();
 		Dungeon.LimitedDrops.MAGICAL_HOLSTER.drop();
 
-		// Let's make all scrolls known right away
-		for (var scroll : Generator.Category.SCROLL.classes) {
-			((Item) Reflection.newInstance(scroll)).identify();
-		}
-
+		// Let's make all potions known right away
 		for (var potion : Generator.Category.POTION.classes) {
 			((Item) Reflection.newInstance(potion)).identify();
 		}

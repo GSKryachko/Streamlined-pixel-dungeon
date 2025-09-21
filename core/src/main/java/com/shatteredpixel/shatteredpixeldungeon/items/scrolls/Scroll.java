@@ -86,6 +86,20 @@ public abstract class Scroll extends Item {
 			put("TIWAZ",ItemSpriteSheet.SCROLL_TIWAZ);
 		}
 	};
+
+	private static final Class<? extends Scroll>[] scrollClasses = new Class[]{
+		ScrollOfIdentify.class,
+				ScrollOfRemoveCurse.class,
+				ScrollOfMirrorImage.class,
+				ScrollOfRecharging.class,
+				ScrollOfTeleportation.class,
+				ScrollOfLullaby.class,
+				ScrollOfMagicMapping.class,
+				ScrollOfRage.class,
+				ScrollOfRetribution.class,
+				ScrollOfTerror.class,
+				ScrollOfTransmutation.class
+	};
 	
 	protected static ItemStatusHandler<Scroll> handler;
 	
@@ -103,7 +117,7 @@ public abstract class Scroll extends Item {
 	
 	@SuppressWarnings("unchecked")
 	public static void initLabels() {
-		handler = new ItemStatusHandler<>( (Class<? extends Scroll>[])Generator.Category.SCROLL.classes, runes );
+		handler = new ItemStatusHandler<>(scrollClasses, runes );
 	}
 
 	public static void clearLabels(){
@@ -132,7 +146,7 @@ public abstract class Scroll extends Item {
 
 	@SuppressWarnings("unchecked")
 	public static void restore( Bundle bundle ) {
-		handler = new ItemStatusHandler<>( (Class<? extends Scroll>[])Generator.Category.SCROLL.classes, runes, bundle );
+		handler = new ItemStatusHandler<>(scrollClasses, runes, bundle );
 	}
 	
 	public Scroll() {
@@ -272,7 +286,7 @@ public abstract class Scroll extends Item {
 	}
 	
 	public static boolean allKnown() {
-		return handler != null && handler.known().size() == Generator.Category.SCROLL.classes.length;
+		return handler != null && handler.known().size() == scrollClasses.length;
 	}
 	
 	@Override
