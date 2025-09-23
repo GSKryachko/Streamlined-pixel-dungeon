@@ -208,7 +208,7 @@ public class Bones {
 						Artifact artifact = Reflection.newInstance(((Artifact)item).getClass());
 						
 						if (artifact != null){
-							artifact.cursed = true;
+							artifact.curse();
 							artifact.cursedKnown = true;
 						}
 
@@ -221,7 +221,7 @@ public class Bones {
 
 				if (item != null) {
 					if (item.isUpgradable() && !(item instanceof MissileWeapon)) {
-						item.cursed = true;
+						item.curse();
 						item.cursedKnown = true;
 					}
 

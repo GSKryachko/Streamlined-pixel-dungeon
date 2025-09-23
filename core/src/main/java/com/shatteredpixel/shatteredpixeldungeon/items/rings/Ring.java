@@ -35,6 +35,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.ItemStatusHandler;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindofMisc;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -51,6 +52,7 @@ public class Ring extends KindofMisc {
 	
 	protected Buff buff;
 	protected Class<? extends RingBuff> buffClass;
+	protected Armor.Glyph glyph;
 
 	private static final LinkedHashMap<String, Integer> gems = new LinkedHashMap<String, Integer>() {
 		{
@@ -134,6 +136,12 @@ public class Ring extends KindofMisc {
 	}
 
 	@Override
+	public Ring curse() {
+		glyph = Armor.Glyph.randomCurse();
+		return this;
+	}
+
+	@Override
 	public boolean doUnequip( Hero hero, boolean collect, boolean single ) {
 		if (super.doUnequip( hero, collect, single )) {
 
@@ -166,6 +174,13 @@ public class Ring extends KindofMisc {
 				Statistics.itemTypesDiscovered.add(getClass());
 			}
 		}
+	}
+
+	public int proc(Armor armor, Char attacker, Char defender, int damage ) {
+		if (glyph == null) {
+			return damage;
+		}
+		return glyph.proc(armor, attacker, defender, damage);
 	}
 	
 	@Override
@@ -270,7 +285,7 @@ public class Ring extends KindofMisc {
 		
 		//30% chance to be cursed
 		if (Random.Float() < 0.3f) {
-			cursed = true;
+			curse();
 		}
 		
 		return this;
@@ -386,20 +401,13 @@ public class Ring extends KindofMisc {
 
 	//just used for ring descriptions
 	public int soloBonus(){
-		if (cursed){
-			return Math.min( 0, Ring.this.level()-2 );
-		} else {
 			return Ring.this.level()+1;
-		}
 	}
 
 	//just used for ring descriptions
 	public int soloBuffedBonus(){
-		if (cursed){
-			return Math.min( 0, Ring.this.buffedLvl()-2 );
-		} else {
+
 			return Ring.this.buffedLvl()+1;
-		}
 	}
 
 	//just used for ring descriptions
