@@ -85,9 +85,7 @@ public abstract class Wand extends Item {
 	public float partialCharge = 0f;
 	
 	protected Charger charger;
-	
-	public boolean curChargeKnown = false;
-	
+
 	public boolean curseInfusionBonus = false;
 	public int resinBonus = 0;
 
@@ -106,7 +104,7 @@ public abstract class Wand extends Item {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if (curCharges > 0 || !curChargeKnown) {
+		if (curCharges > 0) {
 			actions.add( AC_ZAP );
 		}
 
@@ -263,8 +261,6 @@ public abstract class Wand extends Item {
 	
 	@Override
 	public Item identify( boolean byHero ) {
-		
-		curChargeKnown = true;
 		super.identify(byHero);
 		
 		updateQuickslot();
@@ -328,16 +324,12 @@ public abstract class Wand extends Item {
 	public String upgradeStat3(int level){
 		return null;
 	}
-	
-	@Override
-	public boolean isIdentified() {
-		return super.isIdentified() && curChargeKnown;
-	}
+
 	
 	@Override
 	public String status() {
 		if (levelKnown) {
-			return (curChargeKnown ? curCharges : "?") + "/" + maxCharges;
+			return  curCharges + "/" + maxCharges;
 		} else {
 			return null;
 		}
@@ -601,7 +593,6 @@ public abstract class Wand extends Item {
 	private static final String USES_LEFT_TO_ID     = "uses_left_to_id";
 	private static final String AVAILABLE_USES      = "available_uses";
 	private static final String CUR_CHARGES         = "curCharges";
-	private static final String CUR_CHARGE_KNOWN    = "curChargeKnown";
 	private static final String PARTIALCHARGE       = "partialCharge";
 	private static final String CURSE_INFUSION_BONUS= "curse_infusion_bonus";
 	private static final String RESIN_BONUS         = "resin_bonus";
@@ -612,7 +603,6 @@ public abstract class Wand extends Item {
 		bundle.put( USES_LEFT_TO_ID, usesLeftToID );
 		bundle.put( AVAILABLE_USES, availableUsesToID );
 		bundle.put( CUR_CHARGES, curCharges );
-		bundle.put( CUR_CHARGE_KNOWN, curChargeKnown );
 		bundle.put( PARTIALCHARGE , partialCharge );
 		bundle.put( CURSE_INFUSION_BONUS, curseInfusionBonus );
 		bundle.put( RESIN_BONUS, resinBonus );
@@ -629,7 +619,6 @@ public abstract class Wand extends Item {
 		updateLevel();
 
 		curCharges = bundle.getInt( CUR_CHARGES );
-		curChargeKnown = bundle.getBoolean( CUR_CHARGE_KNOWN );
 		partialCharge = bundle.getFloat( PARTIALCHARGE );
 	}
 	
