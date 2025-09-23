@@ -24,7 +24,6 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.AlbinoSprite;
 import com.watabou.utils.Random;
 
@@ -36,7 +35,6 @@ public class Albino extends Rat {
 		HP = HT = 15;
 		EXP = 2;
 		
-		loot = MysteryMeat.class;
 		lootChance = 1f;
 	}
 	

@@ -126,7 +126,6 @@ public class GnollTrickster extends Gnoll {
 	@Override
 	public Item createLoot() {
 		MissileWeapon drop = (MissileWeapon)super.createLoot();
-		drop.level(0);
 		if (drop.hasCurseEnchant()){
 			drop.enchant(null);
 		}

@@ -98,6 +98,8 @@ public enum HeroClass {
 		Dungeon.LimitedDrops.POTION_BANDOLIER.drop();
 		new MagicalHolster().collect();
 		Dungeon.LimitedDrops.MAGICAL_HOLSTER.drop();
+		Dungeon.LimitedDrops.SCROLL_HOLDER.drop();
+
 
 		// Let's make all potions known right away
 		for (var potion : Generator.Category.POTION.classes) {

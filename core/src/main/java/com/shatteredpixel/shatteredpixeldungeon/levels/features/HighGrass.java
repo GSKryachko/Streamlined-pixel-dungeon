@@ -27,7 +27,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Blacksmith;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
@@ -55,21 +54,10 @@ public class HighGrass {
 		
 		Char ch = Actor.findChar(pos);
 		
-		if (level.map[pos] == Terrain.FURROWED_GRASS){
-			if (ch instanceof Hero && ((Hero) ch).heroClass == HeroClass.HUNTRESS){
-				//Do nothing
-				freezeTrample = true;
-			} else {
-				Level.set(pos, Terrain.GRASS);
-			}
-			
-		} else {
-			if (ch instanceof Hero && ((Hero) ch).heroClass == HeroClass.HUNTRESS){
-				Level.set(pos, Terrain.FURROWED_GRASS);
-				freezeTrample = true;
-			} else {
-				Level.set(pos, Terrain.GRASS);
-			}
+		if (level.map[pos] != Terrain.FURROWED_GRASS){
+			Level.set(pos, Terrain.FURROWED_GRASS);
+			freezeTrample = true;
+
 			
 			int naturalismLevel = 0;
 			
