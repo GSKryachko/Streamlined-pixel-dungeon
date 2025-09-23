@@ -44,7 +44,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Alchemize;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAugmentation;
@@ -250,26 +249,14 @@ public class ShopRoom extends SpecialRoom {
 			itemsToSpawn.add( new Torch() );
 			break;
 		}
-		w.enchant(null);
-		w.cursed = false;
-		w.level(0);
-		w.identify(false);
+
 		itemsToSpawn.add(w);
 
-		m.enchant(null);
-		m.cursed = false;
-		m.level(0);
-		m.identify(false);
 		itemsToSpawn.add(m);
 		
 		itemsToSpawn.add( TippedDart.randomTipped(2) );
 
 		itemsToSpawn.add( new Alchemize().quantity(Random.IntRange(2, 3)));
-
-		Bag bag = ChooseBag(Dungeon.hero.belongings);
-		if (bag != null) {
-			itemsToSpawn.add(bag);
-		}
 
 		itemsToSpawn.add( new PotionOfHealing() );
 		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.POTION ) );
@@ -279,8 +266,6 @@ public class ShopRoom extends SpecialRoom {
 			itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.POTION));
 
 
-		itemsToSpawn.add( new SmallRation() );
-		itemsToSpawn.add( new SmallRation() );
 		
 		switch (Random.Int(4)){
 			case 0:
@@ -324,11 +309,9 @@ public class ShopRoom extends SpecialRoom {
 		switch (Random.Int(10)){
 			case 0:
 				rare = Generator.random( Generator.Category.WAND );
-				rare.level( 0 );
 				break;
 			case 1:
 				rare = Generator.random(Generator.Category.RING);
-				rare.level( 0 );
 				break;
 			case 2:
 				rare = Generator.random( Generator.Category.ARTIFACT );
@@ -336,8 +319,7 @@ public class ShopRoom extends SpecialRoom {
 			default:
 				rare = new Stylus();
 		}
-		rare.cursed = false;
-		rare.cursedKnown = true;
+
 		itemsToSpawn.add( rare );
 
 		//use a new generator here to prevent items in shop stock affecting levelgen RNG (e.g. sandbags)

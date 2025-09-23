@@ -49,7 +49,6 @@ public class Spinner extends Mob {
 		EXP = 9;
 		maxLvl = 17;
 
-		loot = MysteryMeat.class;
 		lootChance = 0.125f;
 
 		HUNTING = new Hunting();

@@ -70,10 +70,11 @@ public abstract class RegularPainter extends Painter {
 	private float[] trapChances;
 	
 	public RegularPainter setTraps(int num, Class<?>[] classes, float[] chances){
-		nTraps = num;
-		trapClasses = (Class<? extends Trap>[]) classes;
-		trapChances = chances;
 		return this;
+//		nTraps = num;
+//		trapClasses = (Class<? extends Trap>[]) classes;
+//		trapChances = chances;
+//		return this;
 	}
 
 	protected int padding(Level level){
@@ -184,17 +185,6 @@ public abstract class RegularPainter extends Painter {
 	}
 	
 	protected void paintDoors( Level l, ArrayList<Room> rooms ) {
-
-		float hiddenDoorChance = 0;
-		if (Dungeon.depth > 1){
-			//chance for a hidden door scales from 2/20 on floor 2 to 20/20 on floor 20
-			hiddenDoorChance = Math.min(1f, Dungeon.depth / 20f);
-		}
-		if (l.feeling == Level.Feeling.SECRETS){
-			//pull the value of extra secret doors toward 50% on secrets level feel
-			hiddenDoorChance = (0.5f + hiddenDoorChance)/2f;
-		}
-
 		HashMap<Room, Room> roomMerges = new HashMap<>();
 
 		for (Room r : rooms) {
@@ -214,50 +204,7 @@ public abstract class RegularPainter extends Painter {
 				int door = d.x + d.y * l.width();
 				
 				if (d.type == Room.Door.Type.REGULAR){
-					if (Random.Float() < hiddenDoorChance) {
-						d.type = Room.Door.Type.HIDDEN;
-						//all standard rooms must have an unbroken path to all other standard rooms
-						if (l.feeling != Level.Feeling.SECRETS){
-							Graph.buildDistanceMap(rooms, r);
-							if (n.distance == Integer.MAX_VALUE){
-								d.type = Room.Door.Type.UNLOCKED;
-							}
-						//on a secrets level, rooms just have to not be totally isolated
-						} else {
-							int roomsInGraph = 0;
-							Graph.buildDistanceMap(rooms, r);
-							for (Room rDest : rooms){
-								if (rDest.distance != Integer.MAX_VALUE
-										&& !(rDest instanceof ConnectionRoom)){
-									roomsInGraph++;
-								}
-							}
-							if (roomsInGraph < 2){
-								d.type = Room.Door.Type.UNLOCKED;
-							} else {
-								roomsInGraph = 0;
-								Graph.buildDistanceMap(rooms, n);
-								for (Room nDest : rooms){
-									if (nDest.distance != Integer.MAX_VALUE
-											&& !(nDest instanceof ConnectionRoom)){
-										roomsInGraph++;
-									}
-								}
-								if (roomsInGraph < 2){
-									d.type = Room.Door.Type.UNLOCKED;
-								}
-							}
-						}
-						Graph.buildDistanceMap(rooms, r);
-						//don't hide if it would make this room only accessible by hidden doors
-						//unless we're on a secrets depth
-						if (l.feeling != Level.Feeling.SECRETS && n.distance == Integer.MAX_VALUE){
-							d.type = Room.Door.Type.UNLOCKED;
-						}
-					} else {
-						d.type = Room.Door.Type.UNLOCKED;
-					}
-
+					d.type = Room.Door.Type.UNLOCKED;
 					//entrance doors on floor 1 are hidden during tutorial
 					//entrance doors on floor 2 are hidden if the player hasn't picked up 2nd guidebook page
 					if (r.isEntrance() || n.isEntrance()){
