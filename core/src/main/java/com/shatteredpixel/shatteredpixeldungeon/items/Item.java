@@ -457,6 +457,13 @@ public class Item implements Bundlable {
 		return identify(true);
 	}
 
+	// So that we can override it in children, for example, if we curse a ring, it will automatically
+	// choose a cursed glyph.
+	public Item curse() {
+		this.cursed = true;
+		return this;
+	}
+
 	public Item identify( boolean byHero ) {
 
 		if (byHero && Dungeon.hero != null && Dungeon.hero.isAlive()){

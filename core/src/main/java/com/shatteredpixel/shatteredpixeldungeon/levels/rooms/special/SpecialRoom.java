@@ -85,16 +85,16 @@ public abstract class SpecialRoom extends Room {
 			StatueRoom.class, CrystalVaultRoom.class, CrystalChoiceRoom.class, SacrificeRoom.class
 	));
 
-	//6 special rooms which give consumables more often than equipment
+	//5 special rooms which give consumables more often than equipment
 	//note that alchemy rooms are spawned separately
 	private static final ArrayList<Class<? extends SpecialRoom>> CONSUMABLE_SPECIALS = new ArrayList<>( Arrays.asList(
 			RunestoneRoom.class, GardenRoom.class, LibraryRoom.class, TreasuryRoom.class,
-			MagicWellRoom.class, CrystalPathRoom.class
+			MagicWellRoom.class
 	) );
 
 	//only one special that uses crystal keys per floor
 	public static final ArrayList<Class<? extends SpecialRoom>> CRYSTAL_KEY_SPECIALS = new ArrayList<>( Arrays.asList(
-			PitRoom.class, CrystalVaultRoom.class, CrystalChoiceRoom.class, CrystalPathRoom.class
+			PitRoom.class, CrystalVaultRoom.class, CrystalChoiceRoom.class
 	) );
 
 	public static ArrayList<Class<? extends Room>> runSpecials = new ArrayList<>();

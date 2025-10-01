@@ -120,6 +120,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfMi
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfDivineInspiration;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.DarkGold;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.Pickaxe;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfAccuracy;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEvasion;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfForce;
@@ -1523,7 +1524,23 @@ public class Hero extends Char {
 			Berserk berserk = Buff.affect(this, Berserk.class);
 			berserk.damage(damage);
 		}
-		
+
+		if(belongings.ring() != null) {
+			damage = belongings.ring().proc(
+					belongings.armor() != null ? belongings.armor() : new ClothArmor(),
+					enemy,
+					this,
+					damage);
+		}
+
+		if(belongings.misc() != null && belongings.misc() instanceof Ring) {
+			damage = ((Ring) belongings.misc()).proc(
+					belongings.armor() != null ? belongings.armor() : new ClothArmor(),
+					enemy,
+					this,
+					damage);
+		}
+
 		if (belongings.armor() != null) {
 			damage = belongings.armor().proc( enemy, this, damage );
 		} else {
