@@ -366,8 +366,7 @@ abstract public class MissileWeapon extends Weapon {
 	}
 	
 	protected void rangedHit( Char enemy, int cell ){
-		decrementDurability();
-		if (durability > 0 && !spawnedForEffect){
+		if (!spawnedForEffect){
 			//attempt to stick the missile weapon to the enemy, just drop it if we can't.
 			if (sticky && enemy != null && enemy.isActive() && enemy.alignment != Char.Alignment.ALLY){
 				PinCushion p = Buff.affect(enemy, PinCushion.class);
@@ -394,11 +393,6 @@ abstract public class MissileWeapon extends Weapon {
 		durability = Math.min(durability, MAX_DURABILITY);
 	}
 
-	public void damage( float amount ){
-		durability -= amount;
-		durability = Math.max(durability, 1); //cannot break from doing this
-	}
-
 	public final float durabilityPerUse(){
 		return durabilityPerUse(level());
 	}
@@ -407,62 +401,9 @@ abstract public class MissileWeapon extends Weapon {
 	protected boolean useRoundingInDurabilityCalc = true;
 
 	public float durabilityPerUse( int level ){
-		float usages = baseUses * (float)(Math.pow(1.5f, level));
-
-		//+33%/50% durability
-		if (Dungeon.hero != null && Dungeon.hero.hasTalent(Talent.DURABLE_PROJECTILES)){
-			usages *= 1f + (1+Dungeon.hero.pointsInTalent(Talent.DURABLE_PROJECTILES))/6f;
-		}
-		if (holster) {
-			usages *= MagicalHolster.HOLSTER_DURABILITY_FACTOR;
-		}
-
-		//+50% durability on speed aug, -33% durability on damage aug
-		usages /= augment.delayFactor(1f);
-
-		if (Dungeon.hero != null) usages *= RingOfSharpshooting.durabilityMultiplier( Dungeon.hero );
-
-		//at 100 uses, items just last forever.
-		if (usages >= 100f) return 0;
-
-		if (useRoundingInDurabilityCalc){
-			usages = Math.round(usages);
-			//add a tiny amount to account for rounding error for calculations like 1/3
-			return (MAX_DURABILITY/usages) + 0.001f;
-		} else {
-			//rounding can be disabled for classes that override durability per use
-			return MAX_DURABILITY/usages;
-		}
+		return 0;
 	}
-	
-	protected void decrementDurability(){
-		//if this weapon was thrown from a source stack, degrade that stack.
-		//unless a weapon is about to break, then break the one being thrown
-		if (parent != null){
-			if (parent.durability <= parent.durabilityPerUse()){
-				durability = 0;
-				parent.durability = MAX_DURABILITY;
-				parent.extraThrownLeft = false;
-				if (parent.durabilityPerUse() < 100f) {
-					GLog.n(Messages.get(this, "has_broken"));
-				}
-			} else {
-				parent.durability -= parent.durabilityPerUse();
-				if (parent.durability > 0 && parent.durability <= parent.durabilityPerUse()){
-					GLog.w(Messages.get(this, "about_to_break"));
-				}
-			}
-			parent = null;
-		} else {
-			durability -= durabilityPerUse();
-			if (durability > 0 && durability <= durabilityPerUse()){
-				GLog.w(Messages.get(this, "about_to_break"));
-			} else if (durabilityPerUse() < 100f && durability <= 0){
-				GLog.n(Messages.get(this, "has_broken"));
-			}
-		}
-	}
-	
+
 	@Override
 	public int damageRoll(Char owner) {
 		int damage = augment.damageFactor(super.damageRoll( owner ));
@@ -629,22 +570,8 @@ abstract public class MissileWeapon extends Weapon {
 			case NONE:
 		}
 
-		if (levelKnown) {
-			if (durabilityPerUse() > 0) {
-				info += "\n\n" + Messages.get(this, "uses_left",
-						(int) Math.ceil(durability / durabilityPerUse()),
-						(int) Math.ceil(MAX_DURABILITY / durabilityPerUse()));
-			} else {
-				info += "\n\n" + Messages.get(this, "unlimited_uses");
-			}
-		}  else {
-			if (durabilityPerUse(0) > 0) {
-				info += "\n\n" + Messages.get(this, "unknown_uses", (int) Math.ceil(MAX_DURABILITY / durabilityPerUse(0)));
-			} else {
-				info += "\n\n" + Messages.get(this, "unlimited_uses");
-			}
-		}
-		
+		info += "\n\n" + Messages.get(this, "unlimited_uses");
+
 		return info;
 	}
 	

@@ -211,14 +211,6 @@ public class Dart extends MissileWeapon {
 	}
 
 	@Override
-	protected void decrementDurability() {
-		super.decrementDurability();
-		if (Dungeon.hero.buff(Crossbow.ChargedShot.class) != null) {
-			Dungeon.hero.buff(Crossbow.ChargedShot.class).detach();
-		}
-	}
-
-	@Override
 	public void throwSound() {
 		updateCrossbow();
 		if (bow != null) {

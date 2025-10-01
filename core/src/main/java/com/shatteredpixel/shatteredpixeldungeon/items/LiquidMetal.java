@@ -154,7 +154,6 @@ public class LiquidMetal extends Item {
 								quantity -= (int)Math.ceil(maxToUse);
 							} else {
 								Catalog.countUses(LiquidMetal.class, quantity());
-								m.damage(100f);
 								m.repair(quantity()*durabilityPerMetal-1);
 								GLog.i(Messages.get(LiquidMetal.class, "apply", quantity()));
 								detachAll(Dungeon.hero.belongings.backpack);
