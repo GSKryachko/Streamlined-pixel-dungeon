@@ -403,7 +403,6 @@ public class Blacksmith extends NPC {
 				} else if (i instanceof Armor){
 					((Armor) i).inscribe(null);
 				}
-				i.cursed = false;
 			}
 
 			// 30% base chance to be enchanted, stored separately so status isn't revealed early
@@ -459,10 +458,7 @@ public class Blacksmith extends NPC {
 
 			Pickaxe pick = Dungeon.hero.belongings.getItem(Pickaxe.class);
 			if (pick.isEquipped(Dungeon.hero)) {
-				boolean wasCursed = pick.cursed;
-				pick.cursed = false; //so that it can always be removed
 				pick.doUnequip(Dungeon.hero, false);
-				pick.cursed = wasCursed;
 			}
 			pick.detach(Dungeon.hero.belongings.backpack);
 			Quest.pickaxe = pick;

@@ -206,12 +206,6 @@ public class Bones {
 						
 						//generates a new artifact of the same type, always +0
 						Artifact artifact = Reflection.newInstance(((Artifact)item).getClass());
-						
-						if (artifact != null){
-							artifact.curse();
-							artifact.cursedKnown = true;
-						}
-
 						item = artifact;
 						
 					} else {
@@ -220,11 +214,6 @@ public class Bones {
 				}
 
 				if (item != null) {
-					if (item.isUpgradable() && !(item instanceof MissileWeapon)) {
-						item.curse();
-						item.cursedKnown = true;
-					}
-
 					if (item.isUpgradable()) {
 						//caps at +3
 						if (item.level() > 3) {

@@ -394,9 +394,6 @@ abstract public class Weapon extends KindOfWeapon {
 				enchant(null);
 			}
 		}
-		
-		cursed = false;
-
 		return super.upgrade();
 	}
 	
@@ -432,16 +429,11 @@ abstract public class Weapon extends KindOfWeapon {
 		//we use a separate RNG here so that variance due to things like parchment scrap
 		//does not affect levelgen
 		Random.pushGenerator(Random.Long());
-
-			//30% chance to be cursed
-			//10% chance to be enchanted
-			float effectRoll = Random.Float();
-			if (effectRoll < 0.3f * ParchmentScrap.curseChanceMultiplier()) {
-				enchant(Enchantment.randomCurse());
-				cursed = true;
-			} else if (effectRoll >= 1f - (0.1f * ParchmentScrap.enchantChanceMultiplier())){
-				enchant();
-			}
+		//10% chance to be enchanted
+		float effectRoll = Random.Float();
+		if (effectRoll < 0.1f * ParchmentScrap.curseChanceMultiplier()) {
+			enchant();
+		}
 
 		Random.popGenerator();
 
@@ -495,7 +487,7 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 
 	public boolean hasCurseEnchant(){
-		return enchantment != null && enchantment.curse();
+		return false;
 	}
 
 	private static ItemSprite.Glowing HOLY = new ItemSprite.Glowing( 0xFFFF00 );

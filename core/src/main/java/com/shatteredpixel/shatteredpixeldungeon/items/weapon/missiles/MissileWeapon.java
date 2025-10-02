@@ -148,12 +148,7 @@ abstract public class MissileWeapon extends Weapon {
 			quantity = defaultQuantity();
 			Buff.affect(Dungeon.hero, UpgradedSetTracker.class).levelThresholds.put(setID, trueLevel()+1);
 		}
-		//thrown weapons don't get curse weakened
-		boolean wasCursed = cursed;
 		super.upgrade( enchant );
-		if (wasCursed && hasCurseEnchant()){
-			cursed = wasCursed;
-		}
 		return this;
 	}
 	
@@ -298,10 +293,6 @@ abstract public class MissileWeapon extends Weapon {
 			if (bow != null && bow.enchantment != null && Dungeon.hero.buff(MagicImmune.class) == null) {
 				damage = bow.enchantment.proc(this, attacker, defender, damage);
 			}
-		}
-
-		if ((cursed || hasCurseEnchant()) && !cursedKnown){
-			GLog.n(Messages.get(this, "curse_discover"));
 		}
 		cursedKnown = true;
 		if (parent != null) parent.cursedKnown = true;
@@ -456,15 +447,12 @@ abstract public class MissileWeapon extends Weapon {
 			if (!curseInfusionBonus && ((MissileWeapon) other).curseInfusionBonus && ((MissileWeapon) other).hasCurseEnchant()){
 				enchantment = ((MissileWeapon) other).enchantment;
 				curseInfusionBonus = true;
-				cursed = cursed || other.cursed;
 			//enchanted
 			} else if (!curseInfusionBonus && !hasGoodEnchant() && ((MissileWeapon) other).hasGoodEnchant()){
 				enchantment = ((MissileWeapon) other).enchantment;
-				cursed = other.cursed;
 			//nothing
 			} else if (!curseInfusionBonus && hasCurseEnchant() && !((MissileWeapon) other).hasCurseEnchant()){
 				enchantment = ((MissileWeapon) other).enchantment;
-				cursed = other.cursed;
 			}
 			//cursed (no copy as other cannot have a higher priority status)
 
@@ -549,11 +537,8 @@ abstract public class MissileWeapon extends Weapon {
 			info += "\n\n" + Messages.get(Weapon.class, "hardened_no_enchant");
 		}
 
-		if (cursedKnown && cursed) {
-			info += "\n\n" + Messages.get(Weapon.class, "cursed");
-		} else if (!isIdentified() && cursedKnown){
-			info += "\n\n" + Messages.get(Weapon.class, "not_cursed");
-		}
+		info += "\n\n" + Messages.get(Weapon.class, "not_cursed");
+
 
 		info += "\n\n";
 		String statsInfo = Messages.get(this, "stats_desc");
@@ -580,9 +565,6 @@ abstract public class MissileWeapon extends Weapon {
 		int price = 5 * tier * quantity;
 		if (hasGoodEnchant()) {
 			price *= 1.5;
-		}
-		if (cursedKnown && (cursed || hasCurseEnchant())) {
-			price /= 2;
 		}
 		if (levelKnown && level() > 0) {
 			price *= (level() + 1);

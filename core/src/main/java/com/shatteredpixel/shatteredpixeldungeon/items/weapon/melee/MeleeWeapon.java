@@ -348,11 +348,7 @@ public class MeleeWeapon extends Weapon {
 			info += "\n\n" + Messages.get(Weapon.class, "hardened_no_enchant");
 		}
 
-		if (cursed && isEquipped( Dungeon.hero )) {
-			info += "\n\n" + Messages.get(Weapon.class, "cursed_worn");
-		} else if (cursedKnown && cursed) {
-			info += "\n\n" + Messages.get(Weapon.class, "cursed");
-		} else if (!isIdentified() && cursedKnown){
+		if (!isIdentified() && cursedKnown){
 			if (enchantment != null && enchantment.curse()) {
 				info += "\n\n" + Messages.get(Weapon.class, "weak_cursed");
 			} else {
@@ -396,9 +392,6 @@ public class MeleeWeapon extends Weapon {
 		int price = 20 * tier;
 		if (hasGoodEnchant()) {
 			price *= 1.5;
-		}
-		if (cursedKnown && (cursed || hasCurseEnchant())) {
-			price /= 2;
 		}
 		if (levelKnown && level() > 0) {
 			price *= (level() + 1);

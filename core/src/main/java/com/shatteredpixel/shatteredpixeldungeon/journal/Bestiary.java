@@ -111,7 +111,6 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.traps.BurningTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ChillingTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ConfusionTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.CorrosionTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.CursingTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.DisarmingTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.DisintegrationTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.DistortionTrap;
@@ -243,7 +242,7 @@ public enum Bestiary {
 				ChillingTrap.class, BurningTrap.class, ShockingTrap.class, AlarmTrap.class, GrippingTrap.class, TeleportationTrap.class, OozeTrap.class,
 				FrostTrap.class, BlazingTrap.class, StormTrap.class, GuardianTrap.class, FlashingTrap.class, WarpingTrap.class,
 				ConfusionTrap.class, ToxicTrap.class, CorrosionTrap.class,
-				FlockTrap.class, SummoningTrap.class, WeakeningTrap.class, CursingTrap.class,
+				FlockTrap.class, SummoningTrap.class, WeakeningTrap.class,
 				GeyserTrap.class, ExplosiveTrap.class, RockfallTrap.class, PitfallTrap.class,
 				DistortionTrap.class, DisarmingTrap.class, GrimTrap.class);
 

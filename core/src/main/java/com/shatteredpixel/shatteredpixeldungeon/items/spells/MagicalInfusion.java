@@ -92,10 +92,8 @@ public class MagicalInfusion extends InventorySpell {
 		} else if (item instanceof Armor && ((Armor) item).glyph != null) {
 			item = ((Armor) item).upgrade(true);
 		} else {
-			boolean wasCursed = item.cursed;
 			boolean wasCurseInfused = item instanceof Wand && ((Wand) item).curseInfusionBonus;
 			item = item.upgrade();
-			if (wasCursed) item.cursed = true;
 			if (wasCurseInfused) ((Wand) item).curseInfusionBonus = true;
 		}
 

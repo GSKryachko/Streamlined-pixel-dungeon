@@ -139,73 +139,51 @@ public class WildMagic extends ArmorAbility {
 
 		float startTime = Game.timeTotal;
 		if (cur.tryToZap(hero, cell)) {
-			if (!cur.cursed) {
-				cur.fx(aim, new Callback() {
-					@Override
-					public void call() {
-						cur.onZap(aim);
-						boolean alsoCursedZap = Random.Float() < WondrousResin.extraCurseEffectChance();
-						if (Game.timeTotal - startTime < 0.33f) {
-							hero.sprite.parent.add(new Delayer(0.33f - (Game.timeTotal - startTime)) {
-								@Override
-								protected void onComplete() {
-									if (alsoCursedZap){
-										WondrousResin.forcePositive = true;
-										CursedWand.cursedZap(cur,
-												hero,
-												new Ballistica(hero.pos, cell, Ballistica.MAGIC_BOLT),
-												new Callback() {
-													@Override
-													public void call() {
-														WondrousResin.forcePositive = false;
-														afterZap(cur, wands, hero, cell);
-													}
-												});
-									} else {
-										afterZap(cur, wands, hero, cell);
-									}
-								}
-							});
-						} else {
-							if (alsoCursedZap){
-								WondrousResin.forcePositive = true;
-								CursedWand.cursedZap(cur,
-										hero,
-										new Ballistica(hero.pos, cell, Ballistica.MAGIC_BOLT),
-										new Callback() {
-											@Override
-											public void call() {
-												WondrousResin.forcePositive = false;
-												afterZap(cur, wands, hero, cell);
-											}
-										});
-							} else {
-								afterZap(cur, wands, hero, cell);
-							}
-						}
-					}
-				});
-
-			} else {
-				CursedWand.cursedZap(cur,
-						hero,
-						new Ballistica(hero.pos, cell, Ballistica.MAGIC_BOLT),
-						new Callback() {
+			cur.fx(aim, new Callback() {
+				@Override
+				public void call() {
+					cur.onZap(aim);
+					boolean alsoCursedZap = Random.Float() < WondrousResin.extraCurseEffectChance();
+					if (Game.timeTotal - startTime < 0.33f) {
+						hero.sprite.parent.add(new Delayer(0.33f - (Game.timeTotal - startTime)) {
 							@Override
-							public void call() {
-								if (Game.timeTotal - startTime < 0.33f) {
-									hero.sprite.parent.add(new Delayer(0.33f - (Game.timeTotal - startTime)) {
-										@Override
-										protected void onComplete() {
-											afterZap(cur, wands, hero, cell);
-										}
-									});
+							protected void onComplete() {
+								if (alsoCursedZap){
+									WondrousResin.forcePositive = true;
+									CursedWand.cursedZap(cur,
+											hero,
+											new Ballistica(hero.pos, cell, Ballistica.MAGIC_BOLT),
+											new Callback() {
+												@Override
+												public void call() {
+													WondrousResin.forcePositive = false;
+													afterZap(cur, wands, hero, cell);
+												}
+											});
 								} else {
 									afterZap(cur, wands, hero, cell);
 								}
 							}
 						});
-			}
+					} else {
+						if (alsoCursedZap){
+							WondrousResin.forcePositive = true;
+							CursedWand.cursedZap(cur,
+									hero,
+									new Ballistica(hero.pos, cell, Ballistica.MAGIC_BOLT),
+									new Callback() {
+										@Override
+										public void call() {
+											WondrousResin.forcePositive = false;
+											afterZap(cur, wands, hero, cell);
+										}
+									});
+						} else {
+							afterZap(cur, wands, hero, cell);
+						}
+					}
+				}
+			});
 		} else {
 			afterZap(cur, wands, hero, cell);
 		}

@@ -63,15 +63,14 @@ public class WandOfWarding extends Wand {
 
 	@Override
 	public int collisionProperties(int target) {
-		if (cursed)                                 return super.collisionProperties(target);
-		else if (!Dungeon.level.heroFOV[target])    return Ballistica.PROJECTILE;
+		if (!Dungeon.level.heroFOV[target])    return Ballistica.PROJECTILE;
 		else                                        return Ballistica.STOP_TARGET;
 	}
 
 	@Override
 	public void execute(Hero hero, String action) {
 		//cursed warding does use targeting as it's just doing regular cursed zaps
-		usesTargeting = cursed && cursedKnown;
+		usesTargeting = false;
 		super.execute(hero, action);
 	}
 

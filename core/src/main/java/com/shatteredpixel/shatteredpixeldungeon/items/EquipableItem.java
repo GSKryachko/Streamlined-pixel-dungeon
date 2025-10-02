@@ -24,15 +24,11 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
-import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
-import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
 
@@ -122,14 +118,6 @@ public abstract class EquipableItem extends Item {
 	public abstract boolean doEquip( Hero hero );
 
 	public boolean doUnequip( Hero hero, boolean collect, boolean single ) {
-
-//		if (cursed
-//				&& hero.buff(MagicImmune.class) == null
-//				&& (!hero.belongings.lostInventory() || keptThroughLostInventory())) {
-//			GLog.w(Messages.get(EquipableItem.class, "unequip_cursed"));
-//			return false;
-//		}
-
 		if (single) {
 			hero.spendAndNext( timeToEquip( hero ) );
 		} else {

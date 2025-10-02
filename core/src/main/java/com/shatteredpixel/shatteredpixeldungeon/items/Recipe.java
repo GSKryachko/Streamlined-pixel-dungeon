@@ -46,7 +46,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Alchemize;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.BeaconOfReturning;
-import com.shatteredpixel.shatteredpixeldungeon.items.spells.CurseInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.MagicalInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.PhaseShift;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.ReclaimTrap;
@@ -207,7 +206,6 @@ public abstract class Recipe {
 		new ElixirOfHoneyedHealing.Recipe(),
 		new UnstableSpell.Recipe(),
 		new Alchemize.Recipe(),
-		new CurseInfusion.Recipe(),
 		new ReclaimTrap.Recipe(),
 		new WildEnergy.Recipe(),
 		new StewedMeat.twoMeat()
@@ -257,13 +255,13 @@ public abstract class Recipe {
 	public static boolean usableInRecipe(Item item){
 		//only upgradeable thrown weapons and wands allowed among equipment items
 		if (item instanceof EquipableItem){
-			return item.cursedKnown && !item.cursed &&
+			return item.cursedKnown  &&
 					item instanceof MissileWeapon && item.isUpgradable();
 		} else if (item instanceof Wand) {
-			return item.cursedKnown && !item.cursed;
+			return item.cursedKnown;
 		} else {
 			//other items can be unidentified, but not cursed
-			return !item.cursed;
+			return true;
 		}
 	}
 }

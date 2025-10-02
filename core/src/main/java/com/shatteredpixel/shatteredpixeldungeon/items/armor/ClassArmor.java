@@ -128,7 +128,6 @@ abstract public class ClassArmor extends Armor {
 			classArmor.seal = armor.seal;
 		}
 		classArmor.glyphHardened = armor.glyphHardened;
-		classArmor.cursed = armor.cursed;
 		classArmor.curseInfusionBonus = armor.curseInfusionBonus;
 		classArmor.masteryPotionBonus = armor.masteryPotionBonus;
 		if (armor.levelKnown && armor.cursedKnown) {
@@ -240,7 +239,6 @@ abstract public class ClassArmor extends Armor {
 								level(armor.trueLevel());
 								tier = armor.tier;
 								augment = armor.augment;
-								cursed = armor.cursed;
 								curseInfusionBonus = armor.curseInfusionBonus;
 								masteryPotionBonus = armor.masteryPotionBonus;
 								if (armor.checkSeal() != null) {

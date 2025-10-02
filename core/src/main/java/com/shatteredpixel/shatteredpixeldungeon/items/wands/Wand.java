@@ -127,11 +127,7 @@ public abstract class Wand extends Item {
 
 	@Override
 	public int targetingPos(Hero user, int dst) {
-		if (cursed && cursedKnown){
-			return new Ballistica(user.pos, dst, Ballistica.MAGIC_BOLT).collisionPos;
-		} else {
-			return new Ballistica(user.pos, dst, collisionProperties).collisionPos;
-		}
+		return new Ballistica(user.pos, dst, collisionProperties).collisionPos;
 	}
 
 	public abstract void onZap(Ballistica attack);
@@ -296,9 +292,7 @@ public abstract class Wand extends Item {
 			desc += "\n\n" + Messages.get(Wand.class, "resin_many", resinBonus);
 		}
 
-		if (cursed && cursedKnown) {
-			desc += "\n\n" + Messages.get(Wand.class, "cursed");
-		} else if (!isIdentified() && cursedKnown){
+		if (!isIdentified() && cursedKnown){
 			desc += "\n\n" + Messages.get(Wand.class, "not_cursed");
 		}
 
@@ -337,7 +331,7 @@ public abstract class Wand extends Item {
 	
 	@Override
 	public int level() {
-		if (!cursed && curseInfusionBonus){
+		if (curseInfusionBonus){
 			curseInfusionBonus = false;
 			updateLevel();
 		}
@@ -351,10 +345,6 @@ public abstract class Wand extends Item {
 	public Item upgrade() {
 
 		super.upgrade();
-
-		if (Random.Int(3) == 0) {
-			cursed = false;
-		}
 
 		if (resinBonus > 0){
 			resinBonus--;
@@ -480,7 +470,7 @@ public abstract class Wand extends Item {
 			}
 		}
 		
-		curCharges -= cursed ? 1 : chargesPerCast();
+		curCharges -= chargesPerCast();
 
 		//remove magic charge at a higher priority, if we are benefiting from it are and not the
 		//wand that just applied it
@@ -555,11 +545,6 @@ public abstract class Wand extends Item {
 		}
 		level(n);
 		curCharges += n;
-		
-		//30% chance to be cursed
-		if (Random.Float() < 0.3f) {
-			cursed = true;
-		}
 
 		return this;
 	}
@@ -574,9 +559,6 @@ public abstract class Wand extends Item {
 	@Override
 	public int value() {
 		int price = 75;
-		if (cursed && cursedKnown) {
-			price /= 2;
-		}
 		if (levelKnown) {
 			if (level() > 0) {
 				price *= (level() + 1);
@@ -630,8 +612,7 @@ public abstract class Wand extends Item {
 	}
 
 	public int collisionProperties(int target){
-		if (cursed)     return Ballistica.MAGIC_BOLT;
-		else            return collisionProperties;
+		return collisionProperties;
 	}
 
 	public static class PlaceHolder extends Wand {
@@ -745,41 +726,28 @@ public abstract class Wand extends Item {
 						}
 					}
 					
-					if (curWand.cursed){
-						if (!curWand.cursedKnown){
-							GLog.n(Messages.get(Wand.class, "curse_discover", curWand.name()));
-						}
-						CursedWand.cursedZap(curWand,
-								curUser,
-								new Ballistica(curUser.pos, target, Ballistica.MAGIC_BOLT),
-								new Callback() {
-									@Override
-									public void call() {
-										curWand.wandUsed();
-									}
-								});
-					} else {
-						curWand.fx(shot, new Callback() {
-							public void call() {
-								curWand.onZap(shot);
-								if (Random.Float() < WondrousResin.extraCurseEffectChance()){
-									WondrousResin.forcePositive = true;
-									CursedWand.cursedZap(curWand,
-											curUser,
-											new Ballistica(curUser.pos, target, Ballistica.MAGIC_BOLT), new Callback() {
-												@Override
-												public void call() {
-													WondrousResin.forcePositive = false;
-													curWand.wandUsed();
-												}
-											});
-								} else {
-									curWand.wandUsed();
-								}
-							}
-						});
 
-					}
+					curWand.fx(shot, new Callback() {
+						public void call() {
+							curWand.onZap(shot);
+							if (Random.Float() < WondrousResin.extraCurseEffectChance()){
+								WondrousResin.forcePositive = true;
+								CursedWand.cursedZap(curWand,
+										curUser,
+										new Ballistica(curUser.pos, target, Ballistica.MAGIC_BOLT), new Callback() {
+											@Override
+											public void call() {
+												WondrousResin.forcePositive = false;
+												curWand.wandUsed();
+											}
+										});
+							} else {
+								curWand.wandUsed();
+							}
+						}
+					});
+
+
 					curWand.cursedKnown = true;
 					
 				}
