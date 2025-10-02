@@ -136,12 +136,6 @@ public class Ring extends KindofMisc {
 	}
 
 	@Override
-	public Ring curse() {
-		glyph = Armor.Glyph.randomCurse();
-		return this;
-	}
-
-	@Override
 	public boolean doUnequip( Hero hero, boolean collect, boolean single ) {
 		if (super.doUnequip( hero, collect, single )) {
 
@@ -204,17 +198,6 @@ public class Ring extends KindofMisc {
 		} else {
 			desc = super.info();
 		}
-
-		if (cursed && isEquipped( Dungeon.hero )) {
-			desc += "\n\n" + Messages.get(Ring.class, "cursed_worn");
-			
-		} else if (cursed && cursedKnown) {
-			desc += "\n\n" + Messages.get(Ring.class, "curse_known");
-			
-		} else if (!isIdentified() && cursedKnown){
-			desc += "\n\n" + Messages.get(Ring.class, "not_cursed");
-			
-		}
 		
 		if (isKnown()) {
 			desc += "\n\n" + statsInfo();
@@ -237,17 +220,6 @@ public class Ring extends KindofMisc {
 
 	public String upgradeStat3(int level){
 		return null;
-	}
-	
-	@Override
-	public Item upgrade() {
-		super.upgrade();
-		
-		if (Random.Int(3) == 0) {
-			cursed = false;
-		}
-		
-		return this;
 	}
 
 	@Override
@@ -282,12 +254,6 @@ public class Ring extends KindofMisc {
 			}
 		}
 		level(n);
-		
-		//30% chance to be cursed
-		if (Random.Float() < 0.3f) {
-			curse();
-		}
-		
 		return this;
 	}
 	
@@ -306,9 +272,6 @@ public class Ring extends KindofMisc {
 	@Override
 	public int value() {
 		int price = 75;
-		if (cursed && cursedKnown) {
-			price /= 2;
-		}
 		if (levelKnown) {
 			if (level() > 0) {
 				price *= (level() + 1);

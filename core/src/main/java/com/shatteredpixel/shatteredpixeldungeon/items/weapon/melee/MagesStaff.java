@@ -95,7 +95,6 @@ public class MagesStaff extends MeleeWeapon {
 	public MagesStaff(Wand wand){
 		this();
 		wand.identify();
-		wand.cursed = false;
 		this.wand = wand;
 		updateWand(false);
 		wand.curCharges = wand.maxCharges;
@@ -148,8 +147,6 @@ public class MagesStaff extends MeleeWeapon {
 				return;
 			}
 
-			if (cursed || hasCurseEnchant()) wand.cursed = true;
-			else                             wand.cursed = false;
 			wand.execute(hero, AC_ZAP);
 		}
 	}
@@ -258,12 +255,6 @@ public class MagesStaff extends MeleeWeapon {
 			applyWandChargeBuff(Dungeon.hero);
 		}
 
-		if (wand.cursed && (!this.cursed || !this.hasCurseEnchant())){
-			equipCursed(Dungeon.hero);
-			this.cursed = this.cursedKnown = true;
-			enchant(Enchantment.randomCurse());
-		}
-
 		//This is necessary to reset any particles.
 		//FIXME this is gross, should implement a better way to fully reset quickslot visuals
 		int slot = Dungeon.quickslot.getSlot(this);
@@ -350,8 +341,7 @@ public class MagesStaff extends MeleeWeapon {
 
 		if (wand != null){
 			info += "\n\n" + Messages.get(this, "has_wand", Messages.get(wand, "name"));
-			if ((!cursed && !hasCurseEnchant()) || !cursedKnown)    info += " " + wand.statsDesc();
-			else                                                    info += " " + Messages.get(this, "cursed_wand");
+			info += " " + wand.statsDesc();
 
 			if (Dungeon.hero.subClass == HeroSubClass.BATTLEMAGE){
 				info += "\n\n" + Messages.get(wand, "bmage_desc");
@@ -442,7 +432,7 @@ public class MagesStaff extends MeleeWeapon {
 						bodyText += "\n\n" + Messages.get(MagesStaff.class, "imbue_unknown", trueLevel());
 					}
 
-					if (!item.cursedKnown || item.cursed){
+					if (!item.cursedKnown ){
 						bodyText += "\n\n" + Messages.get(MagesStaff.class, "imbue_cursed");
 					}
 

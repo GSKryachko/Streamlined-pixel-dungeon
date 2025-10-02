@@ -81,7 +81,7 @@ public class HornOfPlenty extends Artifact {
 			actions.add(AC_SNACK);
 			actions.add(AC_EAT);
 		}
-		if (isEquipped( hero ) && level() < levelCap && !cursed) {
+		if (isEquipped( hero ) && level() < levelCap) {
 			actions.add(AC_STORE);
 		}
 		return actions;
@@ -171,7 +171,7 @@ public class HornOfPlenty extends Artifact {
 	
 	@Override
 	public void charge(Hero target, float amount) {
-		if (charge < chargeCap && !cursed && target.buff(MagicImmune.class) == null){
+		if (charge < chargeCap && target.buff(MagicImmune.class) == null){
 			partialCharge += 0.25f*amount;
 			while (partialCharge >= 1){
 				partialCharge--;
@@ -197,12 +197,8 @@ public class HornOfPlenty extends Artifact {
 		String desc = super.desc();
 
 		if ( isEquipped( Dungeon.hero ) ){
-			if (!cursed) {
-				if (level() < levelCap)
-					desc += "\n\n" +Messages.get(this, "desc_hint");
-			} else {
-				desc += "\n\n" +Messages.get(this, "desc_cursed");
-			}
+			if (level() < levelCap)
+				desc += "\n\n" +Messages.get(this, "desc_hint");
 		}
 
 		return desc;
@@ -270,7 +266,7 @@ public class HornOfPlenty extends Artifact {
 	public class hornRecharge extends ArtifactBuff{
 
 		public void gainCharge(float levelPortion) {
-			if (cursed || target.buff(MagicImmune.class) != null) return;
+			if (target.buff(MagicImmune.class) != null) return;
 			
 			if (charge < chargeCap) {
 

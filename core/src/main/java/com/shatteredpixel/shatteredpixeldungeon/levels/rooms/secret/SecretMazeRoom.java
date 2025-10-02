@@ -21,7 +21,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret;
 
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -109,7 +108,6 @@ public class SecretMazeRoom extends SecretRoom {
 				((Armor) prize).inscribe(null);
 			}
 		}
-		prize.cursed = false;
 		prize.cursedKnown = true;
 		
 		//33% chance for an extra update.

@@ -73,7 +73,6 @@ public class TalismanOfForesight extends Artifact {
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
 		if (isEquipped( hero )
-				&& !cursed
 				&& hero.buff(MagicImmune.class) == null) {
 			actions.add(AC_SCRY);
 		}
@@ -100,7 +99,7 @@ public class TalismanOfForesight extends Artifact {
 	
 	@Override
 	public void charge(Hero target, float amount) {
-		if (cursed || target.buff(MagicImmune.class) != null) return;
+		if (target.buff(MagicImmune.class) != null) return;
 		if (charge < chargeCap){
 			partialCharge += 2*amount;
 			while (partialCharge >= 1f){
@@ -121,12 +120,7 @@ public class TalismanOfForesight extends Artifact {
 		String desc = super.desc();
 
 		if ( isEquipped( Dungeon.hero ) ){
-			if (!cursed) {
 				desc += "\n\n" + Messages.get(this, "desc_worn");
-
-			} else {
-				desc += "\n\n" + Messages.get(this, "desc_cursed");
-			}
 		}
 
 		return desc;
@@ -278,7 +272,6 @@ public class TalismanOfForesight extends Artifact {
 			checkAwareness();
 
 			if (charge < chargeCap
-					&& !cursed
 					&& target.buff(MagicImmune.class) == null
 					&& Regeneration.regenOn()) {
 				//fully charges in 2000 turns at +0, scaling to 1000 turns at +10.
@@ -338,7 +331,6 @@ public class TalismanOfForesight extends Artifact {
 			}
 
 			if (smthFound
-					&& !cursed
 					&& target.buff(MagicImmune.class) == null){
 				if (!warn){
 					GLog.w( Messages.get(this, "uneasy") );
@@ -353,7 +345,7 @@ public class TalismanOfForesight extends Artifact {
 		}
 
 		public void charge(int boost){
-			if (!cursed && target.buff(MagicImmune.class) == null) {
+			if (target.buff(MagicImmune.class) == null) {
 				charge = Math.min((charge + boost), chargeCap);
 				updateQuickslot();
 			}

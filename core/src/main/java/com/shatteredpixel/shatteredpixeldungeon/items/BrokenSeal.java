@@ -128,9 +128,6 @@ public class BrokenSeal extends Item {
 			if (!armor.cursedKnown){
 				GLog.w(Messages.get(BrokenSeal.class, "unknown_armor"));
 
-			} else if (armor.cursed && (getGlyph() == null || !getGlyph().curse())){
-				GLog.w(Messages.get(BrokenSeal.class, "cursed_armor"));
-
 			}else if (armor.glyph != null && getGlyph() != null
 					&& canTransferGlyph()
 					&& armor.glyph.getClass() != getGlyph().getClass()) {

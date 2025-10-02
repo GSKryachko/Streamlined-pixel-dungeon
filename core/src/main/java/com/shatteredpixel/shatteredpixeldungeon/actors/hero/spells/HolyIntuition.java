@@ -22,7 +22,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Identification;
@@ -67,11 +66,9 @@ public class HolyIntuition extends InventoryClericSpell {
 
 		item.cursedKnown = true;
 
-		if (item.cursed){
-			GLog.w(Messages.get(this, "cursed"));
-		} else {
-			GLog.i(Messages.get(this, "uncursed"));
-		}
+
+		GLog.i(Messages.get(this, "uncursed"));
+
 
 		hero.spend( 1f );
 		hero.busy();

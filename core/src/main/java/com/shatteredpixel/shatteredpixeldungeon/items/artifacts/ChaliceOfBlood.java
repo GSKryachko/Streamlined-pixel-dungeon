@@ -60,7 +60,6 @@ public class ChaliceOfBlood extends Artifact {
 		ArrayList<String> actions = super.actions( hero );
 		if (isEquipped( hero )
 				&& level() < levelCap
-				&& !cursed
 				&& !hero.isInvulnerable(getClass())
 				&& hero.buff(MagicImmune.class) == null)
 			actions.add(AC_PRICK);
@@ -158,7 +157,7 @@ public class ChaliceOfBlood extends Artifact {
 	
 	@Override
 	public void charge(Hero target, float amount) {
-		if (cursed || target.buff(MagicImmune.class) != null) return;
+		if (target.buff(MagicImmune.class) != null) return;
 
 		float healDelay = 10f - (1.33f + level()*0.667f);
 		healDelay /= amount;
@@ -183,9 +182,7 @@ public class ChaliceOfBlood extends Artifact {
 
 		if (isEquipped (Dungeon.hero)){
 			desc += "\n\n";
-			if (cursed)
-				desc += Messages.get(this, "desc_cursed");
-			else if (level() == 0)
+			if (level() == 0)
 				desc += Messages.get(this, "desc_1");
 			else if (level() < levelCap)
 				desc += Messages.get(this, "desc_2");

@@ -130,14 +130,9 @@ public class WndUpgrade extends Window {
 		add(bg2);
 
 		if (!toUpgrade.isIdentified()){
-			if (!toUpgrade.cursed && toUpgrade.cursedKnown){
-				bg1.hardlight(1f, 1, 2f);
-				bg2.hardlight(1f, 1, 2f);
-			} else {
-				bg1.hardlight(2f, 1, 2f);
-				bg2.hardlight(2f, 1, 2f);
-			}
-		} else if (toUpgrade.cursed && toUpgrade.cursedKnown){
+			bg1.hardlight(1f, 1, 2f);
+			bg2.hardlight(1f, 1, 2f);
+		} else{
 			bg1.hardlight(2f, 0.5f, 1f);
 			bg2.hardlight(2f, 0.5f, 1f);
 		}
@@ -388,13 +383,12 @@ public class WndUpgrade extends Window {
 				}
 			}
 
-			if ((toUpgrade.cursed
-					|| (toUpgrade instanceof Weapon && ((Weapon) toUpgrade).hasCurseEnchant())
+			if ((
+					(toUpgrade instanceof Weapon && ((Weapon) toUpgrade).hasCurseEnchant())
 					|| (toUpgrade instanceof Armor && ((Armor) toUpgrade).hasCurseGlyph()))
 					&& toUpgrade.cursedKnown) {
 
-				if (toUpgrade.cursed && (toUpgrade instanceof MeleeWeapon && ((Weapon) toUpgrade).hasCurseEnchant())
-						|| (toUpgrade instanceof Armor && ((Armor) toUpgrade).hasCurseGlyph())){
+				if ((toUpgrade instanceof Armor && ((Armor) toUpgrade).hasCurseGlyph())){
 					bottom = addMessage(Messages.get(this, "cursed_weaken"), CharSprite.POSITIVE, bottom);
 				} else {
 					bottom = addMessage(Messages.get(this, "cursed"), CharSprite.POSITIVE, bottom);

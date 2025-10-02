@@ -33,7 +33,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Door;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -103,7 +102,6 @@ public class EbonyMimic extends Mimic {
 		//all existing prize items are guaranteed uncursed, and are always at least +1
 		for (Item i : items){
 			if (i instanceof EquipableItem || i instanceof Wand){
-				i.cursed = false;
 				i.cursedKnown = true;
 				if (i instanceof Weapon && ((Weapon) i).hasCurseEnchant()){
 					((Weapon) i).enchant(null);

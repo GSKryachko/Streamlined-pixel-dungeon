@@ -43,13 +43,6 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.AntiEntropy;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Bulk;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Corrosion;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Displacement;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Multiplicity;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Overgrowth;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Stench;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Affection;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Brimstone;
@@ -229,16 +222,6 @@ public class Armor extends EquipableItem {
 
 	@Override
 	public boolean doEquip( Hero hero ) {
-
-		// 15/25% chance
-		if (hero.heroClass != HeroClass.CLERIC && hero.hasTalent(Talent.HOLY_INTUITION)
-				&& cursed && !cursedKnown
-				&& Random.Int(20) < 1 + 2*hero.pointsInTalent(Talent.HOLY_INTUITION)){
-			cursedKnown = true;
-			GLog.p(Messages.get(this, "curse_detected"));
-			return false;
-		}
-
 		detach(hero.belongings.backpack);
 
 		Armor oldArmor = hero.belongings.armor;
@@ -247,11 +230,6 @@ public class Armor extends EquipableItem {
 			hero.belongings.armor = this;
 			
 			cursedKnown = true;
-			if (cursed) {
-				equipCursed( hero );
-				GLog.n( Messages.get(Armor.class, "equip_cursed") );
-			}
-			
 			((HeroSprite)hero.sprite).updateArmor();
 			activate(hero);
 			Talent.onItemEquipped(hero, this);
@@ -259,8 +237,7 @@ public class Armor extends EquipableItem {
 
 			if (Dungeon.hero.heroClass == HeroClass.WARRIOR && checkSeal() == null){
 				BrokenSeal seal = oldArmor != null ? oldArmor.checkSeal() : null;
-				if (seal != null && (!cursed || (seal.getGlyph() != null && seal.getGlyph().curse()))){
-
+				if (seal != null){
 					GameScene.show(new WndOptions(new ItemSprite(ItemSpriteSheet.SEAL),
 							Messages.titleCase(seal.title()),
 							Messages.get(Armor.class, "seal_transfer"),
@@ -485,8 +462,6 @@ public class Armor extends EquipableItem {
 				}
 			}
 		}
-		
-		cursed = false;
 
 		if (seal != null && seal.level() == 0)
 			seal.upgrade();
@@ -620,11 +595,7 @@ public class Armor extends EquipableItem {
 			info += "\n\n" + Messages.get(Armor.class, "hardened_no_glyph");
 		}
 		
-		if (cursed && isEquipped( Dungeon.hero )) {
-			info += "\n\n" + Messages.get(Armor.class, "cursed_worn");
-		} else if (cursedKnown && cursed) {
-			info += "\n\n" + Messages.get(Armor.class, "cursed");
-		} else if (!isIdentified() && cursedKnown){
+		if (!isIdentified() && cursedKnown){
 			if (glyph != null && glyph.curse()) {
 				info += "\n\n" + Messages.get(Armor.class, "weak_cursed");
 			} else {
@@ -675,8 +646,7 @@ public class Armor extends EquipableItem {
 			//15% chance to be inscribed
 			float effectRoll = Random.Float();
 			if (effectRoll < 0.3f * ParchmentScrap.curseChanceMultiplier()) {
-				inscribe(Glyph.randomCurse());
-				cursed = true;
+				// do nothing. It used to curse the thing. Now I am too lazy to simplify it.
 			} else if (effectRoll >= 1f - (0.15f * ParchmentScrap.enchantChanceMultiplier())){
 				inscribe();
 			}
@@ -712,9 +682,6 @@ public class Armor extends EquipableItem {
 		int price = 20 * tier;
 		if (hasGoodGlyph()) {
 			price *= 1.5;
-		}
-		if (cursedKnown && (cursed || hasCurseGlyph())) {
-			price /= 2;
 		}
 		if (levelKnown && level() > 0) {
 			price *= (level() + 1);
@@ -777,7 +744,7 @@ public class Armor extends EquipableItem {
 	}
 
 	public boolean hasCurseGlyph(){
-		return glyph != null && glyph.curse();
+		return false;
 	}
 
 	private static ItemSprite.Glowing HOLY = new ItemSprite.Glowing( 0xFFFF00 );
@@ -810,11 +777,6 @@ public class Armor extends EquipableItem {
 				10  //3.33% each
 		};
 
-		public static final Class<?>[] curses = new Class<?>[]{
-				AntiEntropy.class, Corrosion.class, Displacement.class,
-				Multiplicity.class, Stench.class, Overgrowth.class, Bulk.class
-		};
-		
 		public abstract int proc( Armor armor, Char attacker, Char defender, int damage );
 
 		protected float procChanceMultiplier( Char defender ){
@@ -906,17 +868,5 @@ public class Armor extends EquipableItem {
 				return (Glyph) Reflection.newInstance(Random.element(glyphs));
 			}
 		}
-		
-		@SuppressWarnings("unchecked")
-		public static Glyph randomCurse( Class<? extends Glyph> ... toIgnore ){
-			ArrayList<Class<?>> glyphs = new ArrayList<>(Arrays.asList(curses));
-			glyphs.removeAll(Arrays.asList(toIgnore));
-			if (glyphs.isEmpty()) {
-				return random();
-			} else {
-				return (Glyph) Reflection.newInstance(Random.element(glyphs));
-			}
-		}
-		
 	}
 }

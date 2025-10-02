@@ -60,11 +60,7 @@ public class WandOfDisintegration extends DamageWand {
 	
 	@Override
 	public int targetingPos(Hero user, int dst) {
-		if (!cursed || !cursedKnown) {
-			return dst;
-		} else {
-			return super.targetingPos(user, dst);
-		}
+		return dst;
 	}
 
 	@Override

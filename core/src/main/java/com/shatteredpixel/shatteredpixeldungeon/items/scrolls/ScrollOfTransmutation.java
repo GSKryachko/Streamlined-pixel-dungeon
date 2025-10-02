@@ -109,7 +109,6 @@ public class ScrollOfTransmutation extends InventoryScroll {
 			if (result != item) {
 				int slot = Dungeon.quickslot.getSlot(item);
 				if (item.isEquipped(Dungeon.hero)) {
-					item.cursed = false; //to allow it to be unequipped
 					if (item instanceof Artifact && result instanceof Ring){
 						//if we turned an equipped artifact into a ring, ring goes into inventory
 						((EquipableItem) item).doUnequip(Dungeon.hero, false);
@@ -180,7 +179,6 @@ public class ScrollOfTransmutation extends InventoryScroll {
 				//artifact and ring levels are not exactly equivalent, give the ring up to +2
 				Item result = Generator.randomUsingDefaults(Generator.Category.RING);
 				result.levelKnown = item.levelKnown;
-				result.cursed = item.cursed;
 				result.cursedKnown = item.cursedKnown;
 				if (item.visiblyUpgraded() == 10){
 					result.level(2);
@@ -210,7 +208,6 @@ public class ScrollOfTransmutation extends InventoryScroll {
 			do {
 				n = (Wand) Generator.randomUsingDefaults(Generator.Category.WAND);
 			} while (Challenges.isItemBlocked(n) || n.getClass() == wandClass);
-			n.cursed = false;
 			n.level(0);
 			n.identify();
 			staff.imbueWand(n, null);
@@ -255,7 +252,6 @@ public class ScrollOfTransmutation extends InventoryScroll {
 		n.masteryPotionBonus = w.masteryPotionBonus;
 		n.levelKnown = w.levelKnown;
 		n.cursedKnown = w.cursedKnown;
-		n.cursed = w.cursed;
 		n.augment = w.augment;
 		n.enchantHardened = w.enchantHardened;
 
@@ -285,8 +281,7 @@ public class ScrollOfTransmutation extends InventoryScroll {
 		
 		n.levelKnown = r.levelKnown;
 		n.cursedKnown = r.cursedKnown;
-		n.cursed = r.cursed;
-		
+
 		return n;
 	}
 	
@@ -308,7 +303,6 @@ public class ScrollOfTransmutation extends InventoryScroll {
 			}
 
 			n.cursedKnown = a.cursedKnown;
-			n.cursed = a.cursed;
 			n.levelKnown = a.levelKnown;
 			n.transferUpgrade(a.visiblyUpgraded());
 			return n;
@@ -326,7 +320,6 @@ public class ScrollOfTransmutation extends InventoryScroll {
 		n.level(t.trueLevel());
 		n.levelKnown = t.levelKnown;
 		n.cursedKnown = t.cursedKnown;
-		n.cursed = t.cursed;
 
 		return n;
 	}
@@ -343,7 +336,6 @@ public class ScrollOfTransmutation extends InventoryScroll {
 
 		n.levelKnown = w.levelKnown;
 		n.cursedKnown = w.cursedKnown;
-		n.cursed = w.cursed;
 		n.curseInfusionBonus = w.curseInfusionBonus;
 		n.resinBonus = w.resinBonus;
 

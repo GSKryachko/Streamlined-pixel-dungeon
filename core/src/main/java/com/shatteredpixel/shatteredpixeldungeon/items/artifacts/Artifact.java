@@ -25,13 +25,11 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.GuidingLight;
-import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindofMisc;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -172,27 +170,7 @@ public class Artifact extends KindofMisc {
 	}
 
 	@Override
-	public String info() {
-		if (cursed && cursedKnown && !isEquipped( Dungeon.hero )) {
-			return super.info() + "\n\n" + Messages.get(Artifact.class, "curse_known");
-			
-		} else if (!isIdentified() && cursedKnown && !isEquipped( Dungeon.hero)) {
-			return super.info() + "\n\n" + Messages.get(Artifact.class, "not_cursed");
-			
-		} else {
-			return super.info();
-			
-		}
-	}
-
-	@Override
 	public String status() {
-		
-		//if the artifact isn't IDed, or is cursed, don't display anything
-		if (!isIdentified() || cursed){
-			return null;
-		}
-
 		//display the current cooldown
 		if (cooldown != 0)
 			return Messages.format( "%d", cooldown );
@@ -215,24 +193,10 @@ public class Artifact extends KindofMisc {
 	}
 
 	@Override
-	public Item random() {
-		//always +0
-		
-		//30% chance to be cursed
-		if (Random.Float() < 0.3f) {
-			cursed = true;
-		}
-		return this;
-	}
-
-	@Override
 	public int value() {
 		int price = 100;
 		if (level() > 0)
 			price += 20*visiblyUpgraded();
-		if (cursed && cursedKnown) {
-			price /= 2;
-		}
 		if (price < 1) {
 			price = 1;
 		}
@@ -269,7 +233,7 @@ public class Artifact extends KindofMisc {
 		}
 
 		public boolean isCursed() {
-			return target.buff(MagicImmune.class) == null && cursed;
+			return false;
 		}
 
 		public void charge(Hero target, float amount){

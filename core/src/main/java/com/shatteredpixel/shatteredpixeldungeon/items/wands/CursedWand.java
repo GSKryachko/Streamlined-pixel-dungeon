@@ -84,7 +84,6 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.BurningTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ChillingTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.CursingTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.FlockTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GeyserTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.PitfallTrap;
@@ -737,7 +736,6 @@ public class CursedWand {
 				}
 				return true;
 			} else {
-				CursingTrap.curse( (Hero) user );
 				return true;
 			}
 		}
@@ -1165,12 +1163,9 @@ public class CursedWand {
 			}
 			origin.detach(Dungeon.hero.belongings.backpack);
 			Item result;
-			do {
-				result = Generator.randomUsingDefaults(Random.oneOf(Generator.Category.WEAPON, Generator.Category.ARMOR,
-						Generator.Category.RING, Generator.Category.ARTIFACT));
-			} while (result.cursed);
+			result = Generator.randomUsingDefaults(Random.oneOf(Generator.Category.WEAPON, Generator.Category.ARMOR,
+					Generator.Category.RING, Generator.Category.ARTIFACT));
 			if (result.isUpgradable()) result.upgrade();
-			result.cursed = result.cursedKnown = true;
 			if (origin instanceof Wand){
 				GLog.w( Messages.get(CursedWand.class, "transmogrify_wand") );
 			} else {

@@ -84,7 +84,6 @@ public class Item implements Bundlable {
 
 	public boolean levelKnown = true;
 	
-	public boolean cursed;
 	public boolean cursedKnown = true;
 	
 	// Unique items persist through revival
@@ -436,17 +435,13 @@ public class Item implements Bundlable {
 	public int buffedVisiblyUpgraded() {
 		return levelKnown ? buffedLvl() : 0;
 	}
-	
-	public boolean visiblyCursed() {
-		return cursed && cursedKnown;
-	}
-	
+
 	public boolean isUpgradable() {
 		return true;
 	}
 	
 	public boolean isIdentified() {
-		return levelKnown && cursedKnown;
+		return levelKnown;
 	}
 	
 	public boolean isEquipped( Hero hero ) {
@@ -455,13 +450,6 @@ public class Item implements Bundlable {
 
 	public final Item identify(){
 		return identify(true);
-	}
-
-	// So that we can override it in children, for example, if we curse a ring, it will automatically
-	// choose a cursed glyph.
-	public Item curse() {
-		this.cursed = true;
-		return this;
 	}
 
 	public Item identify( boolean byHero ) {
@@ -584,7 +572,6 @@ public class Item implements Bundlable {
 	private static final String QUANTITY		= "quantity";
 	private static final String LEVEL			= "level";
 	private static final String LEVEL_KNOWN		= "levelKnown";
-	private static final String CURSED			= "cursed";
 	private static final String CURSED_KNOWN	= "cursedKnown";
 	private static final String QUICKSLOT		= "quickslotpos";
 	private static final String KEPT_LOST       = "kept_lost";
@@ -595,7 +582,6 @@ public class Item implements Bundlable {
 		bundle.put( QUANTITY, quantity );
 		bundle.put( LEVEL, level );
 		bundle.put( LEVEL_KNOWN, levelKnown );
-		bundle.put( CURSED, cursed );
 		bundle.put( CURSED_KNOWN, cursedKnown );
 		if (Dungeon.quickslot.contains(this)) {
 			bundle.put( QUICKSLOT, Dungeon.quickslot.getSlot(this) );
@@ -616,8 +602,6 @@ public class Item implements Bundlable {
 		} else if (level < 0) {
 			degrade( -level );
 		}
-		
-		cursed	= bundle.getBoolean( CURSED );
 
 		//only want to populate slot on first load.
 		if (Dungeon.hero == null) {
