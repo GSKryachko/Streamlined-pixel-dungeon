@@ -519,33 +519,6 @@ public class Dungeon {
 		dropped.add( item );
 	}
 
-	public static boolean posNeeded() {
-		//2 POS each floor set
-		int posLeftThisSet = 2 - (LimitedDrops.STRENGTH_POTIONS.count - (depth / 5) * 2);
-		if (posLeftThisSet <= 0) return false;
-
-		int floorThisSet = (depth % 5);
-
-		//pos drops every two floors, (numbers 1-2, and 3-4) with a 50% chance for the earlier one each time.
-		int targetPOSLeft = 2 - floorThisSet/2;
-		if (floorThisSet % 2 == 1 && Random.Int(2) == 0) targetPOSLeft --;
-
-		if (targetPOSLeft < posLeftThisSet) return true;
-		else return false;
-
-	}
-	
-	public static boolean souNeeded() {
-		int souLeftThisSet;
-		//3 SOU each floor set
-		souLeftThisSet = 3 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 3);
-		if (souLeftThisSet <= 0) return false;
-
-		int floorThisSet = (depth % 5);
-		//chance is floors left / scrolls left
-		return Random.Int(5 - floorThisSet) < souLeftThisSet;
-	}
-	
 	public static boolean asNeeded() {
 		//1 AS each floor set
 		int asLeftThisSet = 1 - (LimitedDrops.ARCANE_STYLI.count - (depth / 5));
@@ -568,12 +541,6 @@ public class Dungeon {
 		}
 		return false;
 	}
-
-	public static boolean intStoneNeeded(){
-		//one stone on floors 1-3
-		return depth < 5 && !LimitedDrops.INT_STONE.dropped() && Random.Int(4-depth) == 0;
-	}
-
 	public static boolean trinketCataNeeded(){
 		//one trinket catalyst on floors 1-3
 		return depth < 5 && !LimitedDrops.TRINKET_CATA.dropped() && Random.Int(4-depth) == 0;

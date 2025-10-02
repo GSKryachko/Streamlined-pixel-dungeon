@@ -63,7 +63,6 @@ public class HeavyBoomerang extends MissileWeapon {
 
 	@Override
 	protected void rangedHit(Char enemy, int cell) {
-		decrementDurability();
 		if (durability > 0){
 			Buff.append(Dungeon.hero, CircleBack.class).setup(this, cell, Dungeon.hero.pos, Dungeon.depth, Dungeon.branch);
 		}
@@ -137,10 +136,6 @@ public class HeavyBoomerang extends MissileWeapon {
 												}
 												
 											} else if (returnTarget != null){
-												boomerang.circleBackhit = true;
-												if (((Hero)target).shoot( returnTarget, boomerang )) {
-													boomerang.decrementDurability();
-												}
 												boomerang.circleBackhit = false;
 												if (!boomerang.spawnedForEffect && boomerang.durability > 0) {
 													Dungeon.level.drop(boomerang, returnPos).sprite.drop();

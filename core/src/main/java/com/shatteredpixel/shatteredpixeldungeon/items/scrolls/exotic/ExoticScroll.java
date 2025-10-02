@@ -24,7 +24,6 @@ package com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
@@ -50,9 +49,6 @@ public abstract class ExoticScroll extends Scroll {
 		regToExo.put(ScrollOfUpgrade.class, ScrollOfEnchantment.class);
 		exoToReg.put(ScrollOfEnchantment.class, ScrollOfUpgrade.class);
 
-		regToExo.put(ScrollOfIdentify.class, ScrollOfDivination.class);
-		exoToReg.put(ScrollOfDivination.class, ScrollOfIdentify.class);
-		
 		regToExo.put(ScrollOfRemoveCurse.class, ScrollOfAntiMagic.class);
 		exoToReg.put(ScrollOfAntiMagic.class, ScrollOfRemoveCurse.class);
 

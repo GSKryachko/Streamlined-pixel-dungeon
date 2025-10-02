@@ -72,10 +72,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfEnchantment;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfIntuition;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.DimensionalSundial;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.EyeOfNewt;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.MossyClump;
@@ -216,11 +214,6 @@ public abstract class Level implements Bundlable {
 
 		//TODO maybe just make this part of RegularLevel?
 		if (!Dungeon.bossLevel() && Dungeon.branch == 0) {
-
-			if (Dungeon.posNeeded()) {
-				Dungeon.LimitedDrops.STRENGTH_POTIONS.count++;
-				addItemToSpawn( new PotionOfStrength() );
-			}
 			if (Dungeon.asNeeded()) {
 				Dungeon.LimitedDrops.ARCANE_STYLI.count++;
 				addItemToSpawn( new Stylus() );
@@ -228,10 +221,6 @@ public abstract class Level implements Bundlable {
 			if ( Dungeon.enchStoneNeeded() ){
 				Dungeon.LimitedDrops.ENCH_STONE.drop();
 				addItemToSpawn( new StoneOfEnchantment() );
-			}
-			if ( Dungeon.intStoneNeeded() ){
-				Dungeon.LimitedDrops.INT_STONE.drop();
-				addItemToSpawn( new StoneOfIntuition() );
 			}
 			if ( Dungeon.trinketCataNeeded() ){
 				Dungeon.LimitedDrops.TRINKET_CATA.drop();

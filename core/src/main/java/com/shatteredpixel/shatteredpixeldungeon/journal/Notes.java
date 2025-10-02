@@ -25,7 +25,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Foliage;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.SacrificialFire;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.WaterOfAwareness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.WaterOfHealth;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DemonSpawner;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Statue;
@@ -249,7 +248,6 @@ public class Notes {
 				case GARDEN:            return Messages.get(Foliage.class, "desc");
 				case DISTANT_WELL:      return Messages.get(WeakFloorRoom.HiddenWell.class, "desc");
 				case WELL_OF_HEALTH:    return Messages.get(WaterOfHealth.class, "desc");
-				case WELL_OF_AWARENESS: return Messages.get(WaterOfAwareness.class, "desc");
 				case SACRIFICIAL_FIRE:  return Messages.get(SacrificialFire.class, "desc");
 				case STATUE:            return Messages.get(Statue.class, "desc");
 

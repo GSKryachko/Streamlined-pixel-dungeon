@@ -88,7 +88,6 @@ public abstract class Scroll extends Item {
 	};
 
 	private static final Class<? extends Scroll>[] scrollClasses = new Class[]{
-		ScrollOfIdentify.class,
 				ScrollOfRemoveCurse.class,
 				ScrollOfMirrorImage.class,
 				ScrollOfRecharging.class,
@@ -324,7 +323,6 @@ public abstract class Scroll extends Item {
 		
 		private static HashMap<Class<?extends Scroll>, Class<?extends Runestone>> stones = new HashMap<>();
 		static {
-			stones.put(ScrollOfIdentify.class,      StoneOfIntuition.class);
 			stones.put(ScrollOfLullaby.class,       StoneOfDeepSleep.class);
 			stones.put(ScrollOfMagicMapping.class,  StoneOfClairvoyance.class);
 			stones.put(ScrollOfMirrorImage.class,   StoneOfFlock.class);
