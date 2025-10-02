@@ -116,6 +116,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.keys.SkeletonKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfExperience;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfMight;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfDivineInspiration;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.DarkGold;
@@ -2046,6 +2047,10 @@ public class Hero extends Char {
 					GLog.p( Messages.get(this, "new_talent") );
 					StatusPane.talentBlink = 10f;
 					WndHero.lastIdx = 1;
+				}
+
+				if (lvl % 5 == 0 || lvl % 5 == 2) {
+					new PotionOfStrength().apply(this);
 				}
 			}
 			

@@ -528,7 +528,7 @@ public class Generator {
 					TimekeepersHourglass.class,
 					UnstableSpellbook.class
 			};
-			ARTIFACT.defaultProbs = new float[]{ 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0 };
+			ARTIFACT.defaultProbs = new float[]{ 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0 };
 			ARTIFACT.probs = ARTIFACT.defaultProbs.clone();
 
 			//Trinkets are unique like artifacts, but unlike them you can only have one at once
@@ -551,7 +551,7 @@ public class Generator {
 					ChaoticCenser.class,
 					FerretTuft.class
 			};
-			TRINKET.defaultProbs = new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1 };
+			TRINKET.defaultProbs = new float[]{ 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1 };
 			TRINKET.probs = TRINKET.defaultProbs.clone();
 
 			for (Category cat : Category.values()){
@@ -566,8 +566,8 @@ public class Generator {
 	}
 
 	private static final float[][] floorSetTierProbs = new float[][] {
-			{0, 75, 20,  4,  1},
-			{0, 25, 50, 20,  5},
+			{0, 75, 25,  0,  0},
+			{0, 25, 50, 25,  0},
 			{0,  0, 40, 50, 10},
 			{0,  0, 20, 40, 40},
 			{0,  0,  0, 20, 80}
